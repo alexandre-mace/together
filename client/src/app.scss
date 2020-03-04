@@ -1,0 +1,248 @@
+@import './assets/scss/variables.scss';
+
+body {
+    background-color: $secondary-color;
+    color: white;
+}
+li {
+    list-style-type: none;
+    white-space: nowrap;
+}
+button {
+    white-space: nowrap;
+}
+a {
+    color: inherit;
+    font-weight: bold;
+    &:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+button:focus {
+    outline: none;
+}
+.font-size-3 {
+    font-size: 1.875rem !important;
+    line-height: 2.4rem !important;
+}
+.tl-15 {
+    transform: translateX(-15px) !important;
+}
+.color-black {
+    color: black !important;
+}
+.color-primary {
+    color: $primary-color;
+}
+.loader-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10000;
+}
+.logo-container {
+}
+.fs-60 {
+    font-size: 1.9rem !important;
+}
+span.logo {
+    font-size: 30px;
+    color: $primary-color;
+    z-index: 10000;
+}
+span.logo:hover {
+    cursor: pointer;
+}
+.py-30 {
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+.search-container {
+    position: absolute;
+    border-radius: 10px;
+    top: 70px;
+    left: 15px;
+    width: calc(100% - 30px);
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.ap-input {
+    border: none;
+    border-bottom: 1px solid white;
+    border-radius: 10px;
+    padding: 25px 40px 25px 15px;
+    background:
+        transparent;
+    color: black;
+}
+.search-box-margin {
+    margin-top: 12rem;
+}
+.ap-name {
+    color: $secondary-color;
+}
+.ap-address {
+    color: $secondary-color;
+}
+.ap-suggestion-icon {
+    fill: $secondary-color;
+}
+.algolia-places {
+    background-color: white;
+    border-radius: 10px;
+    z-index: 20;
+}
+.position-absolute-bottom-center {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.bottom-navigation-padding {
+    padding-bottom: 100px;
+}
+.search-settings-container {
+    width: calc(100vw - 15px) !important;
+    @media (min-width: 768px) {
+        width: auto !important;
+    }
+}
+.search-settings-button {
+    border-top-left-radius: unset !important;
+    border-bottom-left-radius: unset !important;
+    transform: translateX(-8px) !important;
+    width: calc(100% + 8px) !important;
+    min-width: unset !important;
+    z-index: 10;
+    svg {
+        transform: translateX(2px);
+    }
+}
+.color-red {
+    color: red !important;
+}
+.color-white {
+    color: white !important;
+}
+@media screen and (max-width: 640px) {
+    .MuiCard-root {
+        min-height: auto !important;
+    }
+}
+.MuiPickersDay-day, .MuiPickersCalendarHeader-iconButton, .MuiPickersClockNumber-clockNumber {
+    color: black !important;
+    background-color: transparent !important;
+}
+.full-screen-map {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    width: 100vw;
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10000;
+}
+.leaflet-container {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    width: 100vw;
+}
+.show-password {
+    position: absolute;
+    top: 30px;
+    right: 0;
+}
+.map-close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 2000;
+    color: black;
+}
+.absolute-top-right {
+    position: absolute;
+    top: 1rem;
+    right: 15px;
+}
+.account-link-icon {
+    color: $primary-color !important;
+}
+.viewmode-switcher-container {
+    position: absolute;
+    background-color: transparent;
+    left: 50%;
+    top: 130px;
+    transform: translateX(-50%);
+    z-index: 10000;
+}
+
+.events-container {
+    height: 34vh;
+    height: calc(var(--vh, 1vh) * 34);
+    & > div {
+        height: 100%;
+    }
+    .react-swipeable-view-container {
+        height: 100%;
+    }
+}
+.leaflet-control-attribution {
+    display: none;
+}
+.leaflet-pane {
+    width: 100%;
+}
+.bounce {
+    position: absolute;
+    animation: bounce 0.35s ease 0s 12 alternate;
+}
+.bounce-infinite {
+    position: absolute;
+    animation: bounce 0.35s ease infinite alternate;
+}
+@keyframes bounce {
+    from {
+        top: 0;
+    }
+    to {
+        top: -15px;
+    }
+}
+.full-screen-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background-color: $secondary-color;
+    z-index: 10000;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+svg {
+    max-height: 400px;
+    max-width: 100%;
+}
+@media screen and (max-width: 640px) {
+    svg {
+        max-height: 220px;
+    }
+}
+.min-full-screen {
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+}
+.absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 30px);
+}
