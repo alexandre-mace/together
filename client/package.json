@@ -1,5 +1,5 @@
 {
-  "homepage": "https://alexandre-mace.github.io/action",
+  "homepage": "https://alexandre-mace.github.io/together",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -48,7 +48,7 @@
   },
   "scripts": {
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d build --repo=https://github.com/alexandre-mace/action.git",
+    "deploy": "gh-pages -d build --repo=https://github.com/alexandre-mace/together.git",
     "start": "react-scripts start",
     "build": "react-scripts build && cp build/index.html build/404.html",
     "test": "react-scripts test",
