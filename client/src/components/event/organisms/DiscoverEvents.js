@@ -32,9 +32,14 @@ const DiscoverEvents = props => {
       decodeURIComponent(props.match.params.page))
   }, []);
 
-  if (props.retrieved && props.retrieved['hydra:member'].length !== allEvents.length) {
-    setAllEvents(props.retrieved['hydra:member']);
-    setLoading(false);
+  if (props.retrieved) {
+    if (props.retrieved['hydra:member'].length !== allEvents.length) {
+      setAllEvents(props.retrieved['hydra:member']);
+    }
+
+    if (loading) {
+      setLoading(false);
+    }
   }
 
   const handleUserPositionSelected = ({lat, lng}, addressName) => {
