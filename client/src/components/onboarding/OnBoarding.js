@@ -63,7 +63,7 @@ const OnBoarding = () => {
           <div className="row h-100">
             <div className="col-12 text-center mt-3 mt-md-5">
               <Typography variant="h4" gutterBottom>
-                Bienvenue dans action
+                Bienvenue dans {PROJECT_NAME}
               </Typography>
             </div>
             <div className="col-12 col-md-6 mx-auto my-5 mt-md-5">
