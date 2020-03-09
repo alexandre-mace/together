@@ -38,7 +38,7 @@ const DiscoverEvents = props => {
     }
 
     if (loading) {
-      setLoading(false);
+      setTimeout(() => {setLoading(false)}, 800);
     }
   }
 
