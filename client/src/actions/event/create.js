@@ -19,6 +19,10 @@ function formatValues(values) {
     values['date'] = values['date'].replace(/\//g, '-')
   }
 
+  if (values['maxPlaces'] && typeof values.maxPlaces === 'string') {
+    values['maxPlaces'] = parseInt(values['maxPlaces'])
+  }
+
   values['organizator'] = authentication.currentUserValue['@id'];
 
   return values

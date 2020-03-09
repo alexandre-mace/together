@@ -13,7 +13,7 @@ const ConfirmEventCreatedPage = (props) => (
       <div className="row h-100">
         <div className="col-12 text-center mt-5 mb-3">
           <Typography variant="h4" gutterBottom>
-            Bravo ! <br/> Votre événement a été ajouté avec succès !
+            Bravo ! <br/> Votre mission a été ajoutée avec succès !
           </Typography>
         </div>
         <div className="col-12 col-md-6 mx-auto">
@@ -23,7 +23,7 @@ const ConfirmEventCreatedPage = (props) => (
         </div>
         <div className="col-12 mt-auto text-center">
           <Typography variant="body1" gutterBottom>
-            Vous serez notifié des intérêts / participations 😊
+            Vous serez notifié de la participation des bénévoles 😊
           </Typography>
         </div>
         <div className="col-12 mt-3 text-center">
@@ -32,10 +32,10 @@ const ConfirmEventCreatedPage = (props) => (
               variant={"contained"}
               onClick={() => {
                 props.reset();
-                props.history.push('/mes-evenements')
+                props.history.push('/mes-missions')
               }}
             >
-              Voir mes événements
+              Voir mes missions
             </Button>
         </div>
       </div>

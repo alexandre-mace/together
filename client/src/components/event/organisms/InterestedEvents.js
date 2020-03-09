@@ -43,7 +43,7 @@ const InterestedEvents = (props) => {
               <NoDataSvg/>
             </div>
             <div className="col-12 text-center mt-3">
-              <p>Vous n'avez pas encore indiqué que vous étiez intéressé ou que vous participez à un événement</p>
+              <p>Vous n'avez pas encore indiqué que vous étiez intéressé ou que vous participez à un mission</p>
             </div>
           </div>
           }
@@ -52,7 +52,7 @@ const InterestedEvents = (props) => {
             <div className="col text-center">
               <span className="font-weight-bold">
                 {events.length}
-              </span> {events.length === 1 ? 'événement dans mon agenda' : 'événements dans mon agenda'}
+              </span> {events.length === 1 ? 'mission dans mon agenda' : 'missions dans mon agenda'}
             </div>
           </div>
           }

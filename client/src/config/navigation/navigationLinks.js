@@ -12,8 +12,8 @@ export const navigationLinks = [
     private: true
   },
   {
-    route: 'mes-evenements',
-    label: 'Mes événements',
+    route: 'mes-missions',
+    label: 'Mes missions',
     icon: 'folder',
     private: true
   }

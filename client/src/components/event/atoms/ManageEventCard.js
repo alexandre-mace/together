@@ -14,6 +14,7 @@ import {reset, retrieve, update} from "../../../actions/event/update";
 import {del} from "../../../actions/event/delete";
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import EventMaxPlacesIndicator from "./EventMaxPlacesIndicator";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -59,6 +60,10 @@ function EventCard(props) {
 
   return (
     <Card key={props.event['@id']} className={classes.card}>
+        <EventMaxPlacesIndicator
+          maxPlaces={props.event.maxPlaces}
+          current={props.event.participants.length}
+        />
       <Link to={`/events/show/${encodeURIComponent(props.event['@id'])}`}>
         <CardHeader
           classes={{title: classes.title}}

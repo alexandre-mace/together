@@ -62,9 +62,9 @@ ReactDOM.render(
         <Route path="/s'inscrire" component={RegisterPage} />
         <PrivateRoute path="/compte" component={AccountPage}/>
         <PrivateRoute path="/mon-agenda" component={InterestedEventsPage}/>
-        <PrivateRoute path="/mes-evenements" component={OrganizedEventsPage}/>
+        <PrivateRoute path="/mes-missions" component={OrganizedEventsPage}/>
         <Route path="/confirmation-inscription" component={ConfirmRegistrationPage} />
-        <Route path="/confirmation-evenement-ajouté" component={ConfirmEventCreatedPage} />
+        <Route path="/confirmation-mission-ajoutée" component={ConfirmEventCreatedPage} />
         <Route path="/bienvenue" component={OnBoardingPage} />
         <Route path="/" component={DiscoverEventsPage}/>
         <Route render={() => <h1>Not Found</h1>} />

@@ -6,7 +6,7 @@ import UpdateEventPage from "../pages/event/UpdateEventPage";
 import ShowEventPage from "../pages/event/ShowEventPage";
 
 export default [
-  <Route path="/ajouter-un-evenement" component={CreateEventPage} exact key="initiate" />,
+  <Route path="/ajouter-une-mission" component={CreateEventPage} exact key="initiate" />,
   <Route path="/events/create" component={Create} exact key="create" />,
   <Route path="/events/edit/:id" component={UpdateEventPage} exact key="update" />,
   <Route path="/events/show/:id" component={ShowEventPage} exact key="show" />,

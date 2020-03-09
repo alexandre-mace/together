@@ -19,6 +19,7 @@ import {del} from "../../../actions/event/delete";
 import {authentication} from "../../../utils/auth/authentication";
 import redirectToLoginIfNoUser from "../../../utils/security/redirectToLoginIfNoUser";
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import EventMaxPlacesIndicator from "./EventMaxPlacesIndicator";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -109,6 +110,10 @@ function EventCard(props) {
 
   return (
     <Card key={props.event['@id']} className={classes.card}>
+      <EventMaxPlacesIndicator
+        maxPlaces={props.event.maxPlaces}
+        current={participants.length}
+      />
       <Link to={`/events/show/${encodeURIComponent(props.event['@id'])}`}>
         <CardHeader
           classes={{title: classes.title}}

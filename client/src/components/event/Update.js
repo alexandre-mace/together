@@ -65,7 +65,7 @@ class Update extends Component {
         <div className="container mt-5 pt-md-5">
           <div className="row">
             <div className="col">
-              <Link to="/mes-evenements">
+              <Link to="/mes-missions">
                 <ArrowBackIcon/>
               </Link>
             </div>
@@ -73,7 +73,7 @@ class Update extends Component {
           {this.props.updated && (
               <div className="row mt-3">
                 <div className="col alert alert-success" role="status">
-                  L'évenement {this.props.updated['@id'].name} a été mis à jour avec succès.
+                  La mission {this.props.updated['@id'].name} a été mis à jour avec succès.
                 </div>
             </div>
           )}

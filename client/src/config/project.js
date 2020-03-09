@@ -1,12 +1,9 @@
 import styles from '../assets/scss/variables.scss'
 
-// INFRASTRUCTURE
-export const GITHUB_REPOSITORY_NAME = "GITHUB_REPOSITORY_NAME";
-
 // PROJECT DESCRIPTION
-export const PROJECT_NAME = "PROJECT_NAME";
-export const PROJECT_DESCRIPTION = PROJECT_NAME + " est une plateforme qui regroupe les événements en faveur de l'environnement";
-export const PROJECT_ONBOARDING_SECOND_STEP = "Si tu veux organiser ou participer à un événement en faveur de l'écologie, tu es au bon endroit 😄.";
+export const PROJECT_NAME = "Together";
+export const PROJECT_DESCRIPTION = PROJECT_NAME + " est une plateforme qui facilite le lien entre bénévoles et associations";
+export const PROJECT_ONBOARDING_SECOND_STEP = "Si tu souhaites aider le milieu associatif, tu es au bon endroit 😄.";
 export const PROJECT_ONBOARDING_THIRD_STEP = "Cette plateforme est une progressive web app, ce qui signifie que si tu l'ajoutes sur ton écran d'accueil mobile, elle se comportera comme une application classique.";
 
 // COLORS

@@ -78,7 +78,7 @@ const DiscoverEvents = props => {
           <div className="row">
             <div className="col text-center">
               <p>
-                Recherche de d'événement à proximité de <br/>
+                Recherche de mission à proximité de <br/>
                 <span className="font-weight-bold">
                   {appContext.userPosition.addressName}
                 </span>
@@ -91,7 +91,7 @@ const DiscoverEvents = props => {
               <p>
                 <span className="font-weight-bold">
                   {props.events.length}
-                </span> {props.events.length === 1 ? 'événement trouvé' : 'événements trouvés'}
+                </span> {props.events.length === 1 ? 'mission trouvé' : 'missions trouvés'}
               </p>
             </div>
           </div>
@@ -103,7 +103,7 @@ const DiscoverEvents = props => {
                 <NoDataSvg/>
               </div>
               <div className="col-12 text-center mt-3">
-                <p>Il n'y a pas encore d'événements organisés proche de votre localisation</p>
+                <p>Il n'y a pas encore de missions organisées proche de votre localisation</p>
               </div>
             </>
             }

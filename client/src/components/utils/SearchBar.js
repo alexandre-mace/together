@@ -98,7 +98,7 @@ const SearchBar = (props) => {
       <div className="row">
         <div className="col-10 pr-0 col-md-7 offset-md-2">
           <AlgoliaPlaces
-            placeholder="Je recherche des événements à "
+            placeholder="Je recherche des missions à "
             options={{
               appId: 'plXZW2RVWB96',
               apiKey: '8432eadb718c9d4714a8beb933d71483',

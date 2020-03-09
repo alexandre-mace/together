@@ -23,7 +23,7 @@ const OrganizedEvents = (props) => {
   }
 
   const deleteEvent = (event) => {
-    if (window.confirm('Voulez-vous vraiment supprimer cet événement'))
+    if (window.confirm('Voulez-vous vraiment supprimer cette mission'))
       props.del(event).then(() => {
         props.retrieve(authentication.currentUserValue['@id']);
       });
@@ -50,13 +50,13 @@ const OrganizedEvents = (props) => {
       <div className="container mt-5">
         <div className="row mt-3">
           <div className="col text-center">
-            <Link to={"/ajouter-un-evenement"}>
+            <Link to={"/ajouter-une-mission"}>
               <Button
                 variant="contained"
                 color="primary"
                 startIcon={<AddCircleRoundedIcon />}
               >
-                Ajouter un evenement
+                Ajouter une mission
               </Button>
             </Link>
           </div>
@@ -71,7 +71,7 @@ const OrganizedEvents = (props) => {
               <NoDataSvg/>
             </div>
             <div className="col-12 text-center mt-3">
-              <p>Aucun événement organisé pour l'instant</p>
+              <p>Aucun mission organisée pour l'instant</p>
             </div>
           </div>
           }
@@ -81,7 +81,7 @@ const OrganizedEvents = (props) => {
               <p>
                 <span className="font-weight-bold">
                   {events.length}
-                </span> {events.length === 1 ? 'événement organisé' : 'événements organisés'}
+                </span> {events.length === 1 ? 'mission organisée' : 'missions organisées'}
               </p>
             </div>
           </div>

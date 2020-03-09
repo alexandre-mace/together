@@ -48,7 +48,7 @@ class Form extends Component {
     return (
       <div className={`form-group`}>
 
-        {data && data.type === 'text' &&
+        {(data && data.type === 'text' || data.type === 'number') &&
         <TextField
           {...data.input}
           type={data.type}
@@ -117,6 +117,13 @@ class Form extends Component {
         />
         <Field
           component={this.renderField}
+          name="maxPlaces"
+          type="number"
+          label="Nombre maximum de bénévoles"
+          required={true}
+        />
+        <Field
+          component={this.renderField}
           name="date"
           type="dateTime"
           label="Date"
@@ -131,7 +138,7 @@ class Form extends Component {
         />
         {!this.props.loading &&
         <Button color="primary" type="submit" variant="contained">
-          {this.props.update ? "Enregistrer les modifications" : "Ajouter l'événement"}
+          {this.props.update ? "Enregistrer les modifications" : "Ajouter la mission"}
         </Button>
         }
         {this.props.loading &&

@@ -21,7 +21,7 @@ const ConfirmRegistrationPage = (props) => (
         </div>
         <div className="col-12 mt-auto text-center">
           <Typography variant="body1" gutterBottom>
-            Découvrez les événements en faveur du climat proches de chez vous 😊
+            Découvrez les missions en faveur du climat proches de chez vous 😊
           </Typography>
         </div>
         <div className="col-12 mt-3 text-center">

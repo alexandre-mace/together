@@ -23,7 +23,7 @@ class Create extends Component {
     if (this.props.created)
       return (
         <Redirect
-          to={`/confirmation-evenement-ajouté`}
+          to={`/confirmation-mission-ajoutée`}
         />
       );
 
@@ -39,7 +39,7 @@ class Create extends Component {
         <div className="container mt-5 pt-md-5">
           <div className="row">
             <div className="col">
-              <Link to="/mes-evenements">
+              <Link to="/mes-missions">
                 <ArrowBackIcon/>
               </Link>
             </div>
