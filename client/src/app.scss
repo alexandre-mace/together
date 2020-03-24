@@ -242,6 +242,9 @@ svg {
     min-height: 100vh;
     min-height: calc(var(--vh, 1vh) * 100);
 }
+.full-screen-page svg {
+    max-height: 35vh;
+}
 .absolute-center {
     position: absolute;
     top: 50%;
