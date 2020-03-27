@@ -22,11 +22,9 @@ const useStyles = makeStyles({
 
 const EventMaxPlacesIndicator = ({ maxPlaces, current }) => {
   const classes = useStyles();
-console.log(maxPlaces)
-console.log(current)
 
   return (
-    <div id="step-indicator" className="row my-3 px-3 align-items-center">
+    <>
         <div className="col">
           <MobileStepper
             variant="progress"
@@ -49,7 +47,7 @@ console.log(current)
               {current} / {maxPlaces}
             </span>
         </div>
-    </div>
+      </>
   )
 }
 export default EventMaxPlacesIndicator;

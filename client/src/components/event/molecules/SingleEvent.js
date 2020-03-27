@@ -17,6 +17,7 @@ import AppContext from "../../../config/context/appContext";
 import {reset, retrieve} from "../../../actions/event/show";
 import {update} from "../../../actions/event/update";
 import {connect} from "react-redux";
+import Paper from '@material-ui/core/Paper';
 
 const SingleEvent = (
   {
@@ -31,7 +32,7 @@ const SingleEvent = (
 
   const handleInterest = (event) => {
     if (!authentication.currentUserValue) {
-      redirectToLoginIfNoUser(props.history);
+      redirectToLoginIfNoUser(history);
       return;
     }
 
@@ -45,7 +46,7 @@ const SingleEvent = (
 
   const handleParticipate = (event) => {
     if (!authentication.currentUserValue) {
-      redirectToLoginIfNoUser(props.history);
+      redirectToLoginIfNoUser(history);
       return;
     }
 
@@ -79,14 +80,17 @@ const SingleEvent = (
     : false;
 
   return (
+    <>
     <div className="container mt-5 pt-md-5">
       <div className="row">
-        <div className="col">
+        <div className="col p-0">
           <IconButton onClick={() => history.goBack()} className={"color-white"}>
             <ArrowBackIcon/>
           </IconButton>
         </div>
       </div>
+    </div>
+      <Paper elevation={3} className={"container mt-3 pt-2 pb-3"}>
       <div className="row mt-3">
         <div className={"col text-center"}>
           <Typography variant={"h6"}
@@ -94,11 +98,20 @@ const SingleEvent = (
           <Typography variant={"h6"}
                       className="font-weight-light">{format(eventDate, 'HH')}h{format(eventDate, 'mm') !== 0 ? format(eventDate, 'mm') : ''}</Typography>
         </div>
+        <div>
+          <div className="col">
+            <Typography variant={"h6"}>
+              {distance ? distance : ''}
+            </Typography>
+          </div>
+        </div>
       </div>
-      <EventMaxPlacesIndicator
-        maxPlaces={item.maxPlaces}
-        current={participants.length}
-      />
+      <div className="row my-3 align-items-center">
+        <EventMaxPlacesIndicator
+          maxPlaces={item.maxPlaces}
+          current={participants.length}
+        />
+      </div>
       <div className="row mt-3">
         <div className="col">
           <Typography variant={"h5"}>{item.name}</Typography>
@@ -142,23 +155,23 @@ const SingleEvent = (
         <div className={"col-12 d-flex justify-content-between align-items-center w-100 flex-wrap"}>
           <div className={"col-12 col-md-auto p-0 d-flex flex-column text-center"}>
             <div>
-              <Typography variant={"h6"}>
-                {distance ? distance : ''}
-              </Typography>
-            </div>
-            <div>
-              <IconButton
-                className={'color-white'}
-                onClick={() => appContext.handleMapView(item)}>
-                <RoomRoundedIcon fontSize="large"/>
-              </IconButton>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => appContext.handleMapView(props.event)}
+                className={"py-3"}
+                endIcon={<RoomRoundedIcon/>}
+              >
+                Voir sur la carte
+              </Button>
             </div>
           </div>
           <div className="col-12 mt-3 mt-md-0 col-md-auto d-flex justify-content-center">
+            {!userParticipates &&
             <Button
               variant="contained"
               className={"py-3"}
-              color={userInterested ? 'primary' : 'secondary'}
+              color={userInterested ? 'primary' : 'disabled'}
               endIcon={
                 <Badge badgeContent={interests.length}>
                   <BookmarkIcon fontSize="large"/>
@@ -168,9 +181,10 @@ const SingleEvent = (
             >
               Intéressé
             </Button>
+            }
             <Button
               variant={"contained"}
-              color={'primary'}
+              color={userParticipates ? 'primary' : 'disabled'}
               className={"ml-3 py-3"}
               endIcon={
                 <Badge badgeContent={participants.length}>
@@ -187,7 +201,8 @@ const SingleEvent = (
           </div>
         </div>
       </div>
-    </div>
+      </Paper>
+      </>
   )
 };
 

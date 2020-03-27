@@ -39,6 +39,9 @@ let theme = createMuiTheme({
       textSecondary: {
         color: "black"
       },
+      contained: {
+        color: COLOR_SECONDARY
+      },
       containedSecondary: {
         color: "#e6e6e6"
       },

@@ -20,6 +20,7 @@ import {authentication} from "../../../utils/auth/authentication";
 import redirectToLoginIfNoUser from "../../../utils/security/redirectToLoginIfNoUser";
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import EventMaxPlacesIndicator from "./EventMaxPlacesIndicator";
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -110,65 +111,74 @@ function EventCard(props) {
 
   return (
     <Card key={props.event['@id']} className={classes.card}>
-      <EventMaxPlacesIndicator
-        maxPlaces={props.event.maxPlaces}
-        current={participants.length}
-      />
       <Link to={`/events/show/${encodeURIComponent(props.event['@id'])}`}>
         <CardHeader
           classes={{title: classes.title}}
           title={`${props.event.name.substring(0, 60)} ${props.event.name.length > 58 ? '...' : ''}`}
           subheader={''}
+          className={"pb-0"}
         />
+        <div className="row my-3 px-3 align-items-center">
+          <EventMaxPlacesIndicator
+            maxPlaces={props.event.maxPlaces}
+            current={participants.length}
+          />
+        </div>
         <CardContent classes={{root: classes.root}} className={"pb-0 pb-md-3"}>
           <div className="d-flex flex-column w-100">
             <div className={"d-none d-md-flex"}>
               <Typography variant={"body1"} >{props.event.description}</Typography>
             </div>
           </div>
+          <div className={"d-flex justify-content-between align-items-center pt-3 w-100"}>
+            <div>
+              <Typography variant={"h6"}>{format(eventDate, 'HH')}h{format(eventDate, 'mm') !== 0 ? format(eventDate, 'mm') : ''}</Typography>
+            </div>
+            <div>
+              <Typography variant={"h6"}>
+                {props.distance ? props.distance : ''}
+              </Typography>
+            </div>
+          </div>
         </CardContent>
       </Link>
 
       <CardActions className={'mt-auto d-flex flex-column pt-0'} disableSpacing>
-        <div className={"d-flex justify-content-between align-items-center w-100 px-2"}>
-          <div>
-            <Typography variant={"h6"} className="font-weight-light">{format(eventDate, 'HH')}h{format(eventDate, 'mm') !== 0 ? format(eventDate, 'mm') : ''}</Typography>
-          </div>
-          <div>
-              <Typography variant={"h6"}>
-                {props.distance ? props.distance : ''}
-              </Typography>
-          </div>
-        </div>
+
         <div className={"d-flex justify-content-between align-items-center w-100"}>
-          <IconButton
-            className={'color-black'}
-            onClick={() => props.handleMapView(props.event)}>
-            <RoomRoundedIcon fontSize="large"/>
-          </IconButton>
-          <div className="d-flex">
-            <IconButton
-              color={userInterested ? 'primary' : 'secondary'}
-              size="medium"
-              onClick={() => handleInterest(props.event)}>
-              <Badge badgeContent={interests.length}>
-                <BookmarkIcon fontSize="large"/>
-              </Badge>
-            </IconButton>
-            <IconButton
-              color={'primary'}
-              size="medium"
-              onClick={() => handleParticipate(props.event)}>
-              <Badge badgeContent={participants.length}>
-                {!userParticipates &&
-                <CalendarTodayIcon className={"fs-60"}/>
-                }
-                {userParticipates &&
-                <EventAvailableIcon fontSize="large"/>
-                }
-              </Badge>
-            </IconButton>
-          </div>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            fullWidth
+            onClick={() => props.handleMapView(props.event)}
+            endIcon={<RoomRoundedIcon/>}
+          >
+            Voir sur la carte
+          </Button>
+          {/*<div className="d-flex">*/}
+          {/*  <IconButton*/}
+          {/*    color={userInterested ? 'primary' : 'secondary'}*/}
+          {/*    size="medium"*/}
+          {/*    onClick={() => handleInterest(props.event)}>*/}
+          {/*    <Badge badgeContent={interests.length}>*/}
+          {/*      <BookmarkIcon fontSize="large"/>*/}
+          {/*    </Badge>*/}
+          {/*  </IconButton>*/}
+          {/*  <IconButton*/}
+          {/*    color={'primary'}*/}
+          {/*    size="medium"*/}
+          {/*    onClick={() => handleParticipate(props.event)}>*/}
+          {/*    <Badge badgeContent={participants.length}>*/}
+          {/*      {!userParticipates &&*/}
+          {/*      <CalendarTodayIcon className={"fs-60"}/>*/}
+          {/*      }*/}
+          {/*      {userParticipates &&*/}
+          {/*      <EventAvailableIcon fontSize="large"/>*/}
+          {/*      }*/}
+          {/*    </Badge>*/}
+          {/*  </IconButton>*/}
+          {/*</div>*/}
         </div>
       </CardActions>
     </Card>
