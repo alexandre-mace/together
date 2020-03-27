@@ -50,7 +50,7 @@ let theme = createMuiTheme({
         backgroundColor: COLOR_PRIMARY
       },
       root: {
-        maxWidth: '300px !important'
+        maxWidth: '450px !important'
       }
     },
     MuiCheckbox: {

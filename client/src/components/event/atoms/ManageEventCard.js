@@ -15,6 +15,8 @@ import {del} from "../../../actions/event/delete";
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import EventMaxPlacesIndicator from "./EventMaxPlacesIndicator";
+import Button from "@material-ui/core/Button";
+import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -60,10 +62,6 @@ function EventCard(props) {
 
   return (
     <Card key={props.event['@id']} className={classes.card}>
-        <EventMaxPlacesIndicator
-          maxPlaces={props.event.maxPlaces}
-          current={props.event.participants.length}
-        />
       <Link to={`/events/show/${encodeURIComponent(props.event['@id'])}`}>
         <CardHeader
           classes={{title: classes.title}}
@@ -74,6 +72,12 @@ function EventCard(props) {
           </div>}
         />
         <CardContent classes={{root: classes.root}} className={"pb-0 pb-md-3"}>
+          <div className="row my-1 align-items-center">
+            <EventMaxPlacesIndicator
+              maxPlaces={props.event.maxPlaces}
+              current={props.event.participants.length}
+            />
+          </div>
           <div className="d-flex flex-column w-100">
             <div className={"d-none d-md-flex"}>
               <Typography variant={"body1"} >{props.event.description}</Typography>
@@ -81,30 +85,32 @@ function EventCard(props) {
             <div>
               <Typography variant={"body1"} className="mt-2 font-weight-light">{props.event.address}</Typography>
             </div>
+            <div>
+              <Typography variant={"h6"} >{format(eventDate, 'HH')}h{format(eventDate, 'mm') !== 0 ? format(eventDate, 'mm') : ''}</Typography>
+            </div>
           </div>
         </CardContent>
       </Link>
 
       <CardActions className={'mt-auto d-flex flex-column pt-0'} disableSpacing>
         <div className={"d-flex justify-content-between align-items-center w-100"}>
-          <div>
-            <Typography variant={"h6"} className="font-weight-light">{format(eventDate, 'HH')}h{format(eventDate, 'mm') !== 0 ? format(eventDate, 'mm') : ''}</Typography>
-          </div>
-          <div>
-          <IconButton
-            className={"color-black"}
-            size="medium"
-            onClick={() => props.updateEvent(props.event)}>
-            <EditRoundedIcon fontSize="large"/>
-          </IconButton>
-          <IconButton
-            className={'color-red'}
-            size="medium"
-            onClick={() => props.deleteEvent(props.event)}>
-            <DeleteForeverRoundedIcon fontSize="large"/>
-          </IconButton>
-          </div>
-
+            <Button
+              variant="contained"
+              color="default"
+              className={classes.button}
+              onClick={() => props.updateEvent(props.event)}
+              endIcon={<EditRoundedIcon/>}
+            >
+              Modifier
+            </Button>
+            <Button
+              variant="contained"
+              className={'color-red'}
+              onClick={() => props.deleteEvent(props.event)}
+              endIcon={<DeleteForeverRoundedIcon/>}
+            >
+              Supprimer
+            </Button>
         </div>
       </CardActions>
     </Card>
