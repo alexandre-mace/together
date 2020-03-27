@@ -24,7 +24,7 @@ const LoginPage = (props) => (
                     <Typography variant={"body1"}>
                         Vous n'avez pas encore de compte ? <br/>
                         <Link to="/s'inscrire">
-                            C'est par ici !
+                            S'inscrire
                         </Link>
                     </Typography>
                 </div>

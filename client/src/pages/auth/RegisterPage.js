@@ -23,7 +23,7 @@ const RegisterPage = (props) => (
           <Typography variant={"body1"}>
             Vous avez déjà un compte compte ? <br/>
             <Link to="/se-connecter">
-              C'est par ici !
+              Se connecter
             </Link>
           </Typography>
         </div>
