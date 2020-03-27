@@ -23,6 +23,10 @@ function RegisterFormWrapper({
 
   return (
     <div>
+      <Typography className={"mt-3"} variant={"h5"}>
+        S'inscrire
+      </Typography>
+
       {status && (
         <div>
           {status.message}
@@ -102,9 +106,6 @@ const Register = (props) => {
       <div className="mb-3 d-inline-block">
         <AuthenticationSvg/>
       </div>
-      <Typography className={"mt-3"} variant={"h5"}>
-        S'inscrire
-      </Typography>
       <FormikWizard
         steps={steps}
         onSubmit={handleSubmit}

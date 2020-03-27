@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {ErrorMessage, Field} from "formik";
 import {TextField} from "formik-material-ui";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import {Typography} from "@material-ui/core";
 
 export default (props) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,6 +10,9 @@ export default (props) => {
 
   return (
     <div>
+      <Typography className={"mt-3"} variant={"h6"}>
+        Sécurité
+      </Typography>
       <div className="form-group">
         <div className="d-flex position-relative">
           <Field component={TextField} variant={"filled"} label="Mot de passe" margin="normal" fullWidth name="password"

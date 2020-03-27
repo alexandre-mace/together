@@ -1,9 +1,13 @@
 import React from "react";
 import {ErrorMessage, Field, connect} from "formik";
 import {TextField} from "formik-material-ui";
+import {Typography} from "@material-ui/core";
 
 const WizardUserFormFirstPage = (props) => (
     <>
+      <Typography className={"mt-3"} variant={"h6"}>
+        Information du compte
+      </Typography>
       <div className="form-group">
         <Field component={TextField}  variant={"filled"} value={props.formik.values.name ? props.formik.values.name : ''} {...props} label="Nom de l'association ou votre prénom" margin="normal" fullWidth name="name" type="text"/>
         <ErrorMessage {...props}  name="name"  component="div" className="invalid-feedback"/>
