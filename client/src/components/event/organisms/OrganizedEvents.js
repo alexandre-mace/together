@@ -64,21 +64,21 @@ const OrganizedEvents = (props) => {
       </div>
       {!props.loading &&
       <>
-        <div className="container mt-5 bottom-navigation-padding">
+        <div className="container mt-4 mb-3">
           {user && events && events.length === 0 &&
           <div className="row">
             <div className="col-12 text-center mt-5">
               <NoDataSvg/>
             </div>
             <div className="col-12 text-center mt-3">
-              <p>Aucun mission organisée pour l'instant</p>
+              <p className={"mb-0"}>Aucun mission organisée pour l'instant</p>
             </div>
           </div>
           }
           {events && events.length > 0 &&
           <div className="row">
             <div className="col text-center">
-              <p>
+              <p className={"mb-0"}>
                 <span className="font-weight-bold">
                   {events.length}
                 </span> {events.length === 1 ? 'mission organisée' : 'missions organisées'}
