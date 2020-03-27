@@ -4,6 +4,7 @@ import {Typography} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import BeerCelebrationSvg from "../../utils/svg/BeerCelebrationSvg";
 import Button from '@material-ui/core/Button';
+import {PROJECT_NAME} from "../../config/project";
 
 const ConfirmRegistrationPage = (props) => (
   <Layout {...props}>
@@ -11,7 +12,7 @@ const ConfirmRegistrationPage = (props) => (
       <div className="row h-100">
         <div className="col-12 text-center mt-5 mb-3">
           <Typography variant="h5" gutterBottom>
-            Bravo ! <br/> Vous faites maintenant parti des membres d'Action !
+            Bravo ! <br/> Vous faites maintenant parti des membres de {PROJECT_NAME} !
           </Typography>
         </div>
         <div className="col-12 col-md-6 mx-auto">
