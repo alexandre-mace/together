@@ -16,9 +16,14 @@ const AppTopNavigation = props => (
       }
     })}
     {!authentication.currentUserValue &&
+      <>
     <Link to={`/se-connecter`}>
       <Button className={"ml-3"} variant={props.location.pathname === "/se-connecter"? "contained" : "text"} color={'primary'}>Se connecter</Button>
     </Link>
+    <Link to={`/s'inscrire`}>
+      <Button className={"ml-3"} variant={props.location.pathname === "/s'inscrire"? "contained" : "text"} color={'primary'}>S'inscrire</Button>
+      </Link>
+    </>
     }
   </div>
 );
