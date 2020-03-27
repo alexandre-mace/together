@@ -65,6 +65,7 @@ class Login extends React.Component {
                         <div className="form-group">
                           <Field
                             component={TextField}
+                            variant="filled"
                             name="email"
                             margin='normal'
                             type="text"
@@ -77,6 +78,7 @@ class Login extends React.Component {
                           <Field
                             component={TextField}
                             name="password"
+                            variant="filled"
                             margin='normal'
                             type={this.state.showPassword ? 'text' : 'password'}
                             label="Votre mot de passe"

@@ -171,7 +171,7 @@ const SingleEvent = (
             <Button
               variant="contained"
               className={"py-3"}
-              color={userInterested ? 'primary' : 'disabled'}
+              color={userInterested ? 'primary' : 'default'}
               endIcon={
                 <Badge badgeContent={interests.length}>
                   <BookmarkIcon fontSize="large"/>
@@ -184,7 +184,7 @@ const SingleEvent = (
             }
             <Button
               variant={"contained"}
-              color={userParticipates ? 'primary' : 'disabled'}
+              color={userParticipates ? 'primary' : 'default'}
               className={"ml-3 py-3"}
               endIcon={
                 <Badge badgeContent={participants.length}>

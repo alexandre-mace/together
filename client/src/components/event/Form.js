@@ -52,6 +52,7 @@ class Form extends Component {
         <TextField
           {...data.input}
           type={data.type}
+          variant={data.variant}
           step={data.step}
           label={data.label}
           required={data.required}
@@ -69,6 +70,7 @@ class Form extends Component {
             this.props.dispatch(change('event', 'date', value));
           }}
           autoOk
+          inputVariant="filled"
           format="dd/MM/yyyy HH:mm"
           value={
             typeof data.input.value === "object"
@@ -101,6 +103,7 @@ class Form extends Component {
       <form onSubmit={this.props.handleSubmit}>
         <Field
           component={this.renderField}
+          variant={"filled"}
           name="name"
           type="text"
           label="Nom"
@@ -109,6 +112,7 @@ class Form extends Component {
         <Field
           component={this.renderField}
           name="description"
+          variant={"filled"}
           type="text"
           label="Description"
           required={true}
@@ -118,6 +122,7 @@ class Form extends Component {
         <Field
           component={this.renderField}
           name="maxPlaces"
+          variant={"filled"}
           type="number"
           label="Nombre maximum de bénévoles"
           required={true}
@@ -125,6 +130,7 @@ class Form extends Component {
         <Field
           component={this.renderField}
           name="date"
+          variant="filled"
           type="dateTime"
           label="Date"
           required={true}
