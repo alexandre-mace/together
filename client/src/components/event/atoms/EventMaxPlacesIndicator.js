@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   root: {
     padding: "0",
     flexGrow: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "transparent"
   },
   progress: {
     height: "10px",
@@ -20,16 +20,17 @@ const useStyles = makeStyles({
   }
 });
 
-const EventMaxPlacesIndicator = ({ maxPlaces, current}) => {
+const EventMaxPlacesIndicator = ({ maxPlaces, current }) => {
   const classes = useStyles();
+console.log(maxPlaces)
+console.log(current)
 
   return (
-    <div id="step-indicator">
-      <div className="row my-3 px-3">
+    <div id="step-indicator" className="row my-3 px-3 align-items-center">
         <div className="col">
           <MobileStepper
             variant="progress"
-            steps={maxPlaces}
+            steps={maxPlaces + 1}
             position="static"
             activeStep={current}
             LinearProgressProps={{
@@ -43,7 +44,11 @@ const EventMaxPlacesIndicator = ({ maxPlaces, current}) => {
             }}
           />
         </div>
-      </div>
+        <div className={"col-auto pl-0"}>
+            <span>
+              {current} / {maxPlaces}
+            </span>
+        </div>
     </div>
   )
 }
