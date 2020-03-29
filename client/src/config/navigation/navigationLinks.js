@@ -11,12 +11,6 @@ export const volunteerNavigationLinks = [
     icon: 'agenda',
     private: true
   },
-  {
-    route: 'mes-missions',
-    label: 'Mes missions',
-    icon: 'folder',
-    private: true
-  }
 ];
 export const associationNavigationLinks = [
   {
