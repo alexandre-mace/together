@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import BeerCelebrationSvg from "../../utils/svg/BeerCelebrationSvg";
 import Button from '@material-ui/core/Button';
 import {PROJECT_NAME} from "../../config/project";
+import {authentication} from "../../utils/auth/authentication";
 
 const ConfirmRegistrationPage = (props) => (
   <Layout {...props}>
@@ -12,7 +13,8 @@ const ConfirmRegistrationPage = (props) => (
       <div className="row h-100">
         <div className="col-12 text-center mt-5 mb-3">
           <Typography variant="h5" gutterBottom>
-            Bravo ! <br/> Vous faites maintenant parti des membres de {PROJECT_NAME} !
+            Bravo ! <br/> Vous faites maintenant parti des
+            {authentication.currentUserValue.status === "association" ? "associations" : "membres"} de {PROJECT_NAME} !
           </Typography>
         </div>
         <div className="col-12 col-md-6 mx-auto">
@@ -22,12 +24,20 @@ const ConfirmRegistrationPage = (props) => (
         </div>
         <div className="col-12 mt-auto text-center">
           <Typography variant="body1" gutterBottom>
-            Découvrez les missions en faveur du climat proches de chez vous 😊
+            {authentication.currentUserValue.status === "association"
+              ? "Ajoutez votre mission et recevez le service des bénévoles de la plateforme 😊"
+              : "Découvrez les missions en faveur du climat proches de chez vous 😊"
+            }
           </Typography>
         </div>
         <div className="col-12 mt-3 text-center">
           <Link to={'/'}>
-            <Button color={"primary"} variant={"contained"}>Découvrir</Button>
+            <Button color={"primary"} variant={"contained"}>
+              {authentication.currentUserValue.status === "association"
+                ? "Accéder à l'interface"
+                : "Découvrir"
+              }
+            </Button>
           </Link>
         </div>
       </div>

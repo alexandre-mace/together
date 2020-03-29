@@ -1,4 +1,4 @@
-export const navigationLinks = [
+export const volunteerNavigationLinks = [
   {
     route: '',
     label: 'Découvrir',
@@ -17,4 +17,18 @@ export const navigationLinks = [
     icon: 'folder',
     private: true
   }
+];
+export const associationNavigationLinks = [
+  {
+    route: 'mes-missions',
+    label: 'Mes missions',
+    icon: 'folder',
+    private: true
+  },
+  {
+    route: '',
+    label: 'Découvrir',
+    icon: 'list',
+    private: false
+  },
 ];

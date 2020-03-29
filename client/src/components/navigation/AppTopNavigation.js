@@ -1,12 +1,19 @@
 import React from "react";
-import {navigationLinks} from "../../config/navigation/navigationLinks";
+import {
+  associationNavigationLinks,
+  volunteerNavigationLinks
+} from "../../config/navigation/navigationLinks";
 import {authentication} from "../../utils/auth/authentication";
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import BottomNavigation from "@material-ui/core/BottomNavigation";
 
 const AppTopNavigation = props => (
   <div className={"col-auto"}>
-    {navigationLinks.map((link, index) => {
+    {((!authentication.currentUserValue || authentication.currentUserValue && authentication.currentUserValue.status === "volunteer")
+      ? volunteerNavigationLinks
+      : associationNavigationLinks)
+      .map((link, index) => {
       if ((!authentication.currentUserValue && link.private === false) || authentication.currentUserValue) {
         return (
           <Link key={index} to={`/${link.route}`}>

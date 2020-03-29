@@ -166,6 +166,8 @@ const SingleEvent = (
                 </Button>
               </div>
             </div>
+            {(!authentication.currentUserValue ||
+              authentication.currentUserValue && authentication.currentUserValue.status === 'volunteer') &&
             <div className="col-12 mt-3 mt-md-0 p-0 p-md-auto col-md-auto d-flex justify-content-center">
               {!userParticipates &&
               <Button
@@ -199,6 +201,7 @@ const SingleEvent = (
                 Participe
               </Button>
             </div>
+            }
           </div>
         </div>
       </Paper>

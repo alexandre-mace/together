@@ -8,6 +8,7 @@ import theme from "../config/ui/theme";
 import AppContext from "../config/context/appContext";
 import Navigation from "./navigation/Navigation";
 import Map from "./map/LeafletMap";
+import {authentication} from "../utils/auth/authentication";
 
 const Layout = (props) => {
   const [userPosition, setUserPosition] = useState({ latitude: 44.8337080, longitude: -0.5821208, addressName:  "38 Rue Lacornée, 33000 Bordeaux France" });
@@ -25,6 +26,11 @@ const Layout = (props) => {
   useEffect(() => {
     if (!localStorage.getItem('action-onboarding')) {
       props.history.push('/bienvenue')
+    }
+
+    if (authentication.currentUserValue && authentication.currentUserValue.status === "association" && !localStorage.getItem("associationRedirect")) {
+      props.history.push('/mes-missions');
+      localStorage.setItem("associationRedirect", "true")
     }
   }, []);
 

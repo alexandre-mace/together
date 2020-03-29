@@ -71,7 +71,7 @@ const OrganizedEvents = (props) => {
               <NoDataSvg/>
             </div>
             <div className="col-12 text-center mt-3">
-              <p className={"mb-0"}>Aucun mission organisée pour l'instant</p>
+              <p className={"mb-0"}>Aucune mission organisée pour l'instant</p>
             </div>
           </div>
           }

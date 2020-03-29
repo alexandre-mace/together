@@ -5,7 +5,10 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import ListIcon from '@material-ui/icons/List';
 import AddIcon from '@material-ui/icons/Add';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import {navigationLinks} from "../../config/navigation/navigationLinks";
+import {
+  associationNavigationLinks,
+  volunteerNavigationLinks
+} from "../../config/navigation/navigationLinks";
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import {authentication} from "../../utils/auth/authentication";
 import BookmarksRoundedIcon from '@material-ui/icons/BookmarksRounded';
@@ -58,7 +61,11 @@ const AppBottomNavigation = (props) => {
     const classes = useStyles();
 
     let defaultValue = 0;
-    navigationLinks.forEach(bottomNavigationLink => {
+
+    ((!authentication.currentUserValue || authentication.currentUserValue && authentication.currentUserValue.status === "volunteer")
+      ? volunteerNavigationLinks
+      : associationNavigationLinks)
+    .forEach(bottomNavigationLink => {
         if (('/' + bottomNavigationLink.route === props.history.location.pathname) || ('/se-connecter' === props.history.location.pathname)) {
             defaultValue = props.history.location.pathname;
         }
@@ -76,7 +83,10 @@ const AppBottomNavigation = (props) => {
             showLabels
             className={classes.root}
         >
-            {navigationLinks.map((bottomNavigationLink, index) => {
+            {((!authentication.currentUserValue || authentication.currentUserValue && authentication.currentUserValue.status === "volunteer")
+                ? volunteerNavigationLinks
+                : associationNavigationLinks)
+              .map((bottomNavigationLink, index) => {
                 const SpecificIcon = bottomNavigationIcons[bottomNavigationLink.icon];
 
                 if ((!authentication.currentUserValue && bottomNavigationLink.private === false) || authentication.currentUserValue) {
