@@ -60,6 +60,13 @@ let theme = createMuiTheme({
         }
       }
     },
+    MuiRadio: {
+      colorSecondary: {
+        '&.Mui-checked': {
+          color: COLOR_PRIMARY
+        }
+      }
+    },
     MuiTab: {
       root: {
         position: 'relative',

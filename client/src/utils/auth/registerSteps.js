@@ -1,13 +1,25 @@
 import * as Yup from 'yup';
 
-import WizardUserFormFirstPage from "../../components/auth/molecules/WizardUserFormFirstPage";
-import WizardUserFormThirdPage from "../../components/auth/molecules/WizardUserFormThirdPage";
-import WizardFormSecondPage from "../../components/auth/molecules/WizardFormSecondPage";
+import WizardUserFormGeneralInformationPage from "../../components/auth/molecules/WizardUserFormGeneralInformationPage";
+import WizardFormContactInformationPage from "../../components/auth/molecules/WizardUserFormContactInformationPage";
+import WizardUserFormSecurityPage from "../../components/auth/molecules/WizardUserFormSecurityPage";
+import WizardUserFormStatusPage from "../../components/auth/molecules/WizardUserFormStatusPage";
 
 export default [
   {
+    id: 'status',
+    component: WizardUserFormStatusPage,
+    initialValues: {
+      status: '',
+    },
+    validationSchema: Yup.object().shape({
+      status: Yup.string()
+        .required('Le status est requis'),
+    }),
+  },
+  {
     id: 'ids',
-    component: WizardUserFormFirstPage,
+    component: WizardUserFormGeneralInformationPage,
     initialValues: {
       name: '',
       email: ''
@@ -22,7 +34,7 @@ export default [
   },
   {
     id: 'contact',
-    component: WizardFormSecondPage,
+    component: WizardFormContactInformationPage,
     initialValues: {
       contactEmail: '',
       contactPhone: ''
@@ -32,7 +44,7 @@ export default [
   },
   {
     id: 'password',
-    component: WizardUserFormThirdPage,
+    component: WizardUserFormSecurityPage,
     initialValues: {
       password: '',
       confirmPassword: ''

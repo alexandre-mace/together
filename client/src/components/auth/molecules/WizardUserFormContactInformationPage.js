@@ -6,7 +6,7 @@ import {Typography} from "@material-ui/core";
 const WizardUserFormSecondPage = (props) => (
   <>
     <Typography className={"mt-3"} variant={"h6"}>
-      Information de contact (affichées pour les participants)
+      Information de contact (affichées pour les {localStorage.getItem("status") === "volunteer" ? "associations" : "participants"})
     </Typography>
     <div className="form-group">
       <Field component={TextField} {...props} value={props.formik.values.contactEmail ? props.formik.values.contactEmail : ''} variant={"filled"} label="Email de contact" margin="normal" fullWidth name="contactEmail" type="text"/>

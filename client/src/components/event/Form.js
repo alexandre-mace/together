@@ -33,8 +33,10 @@ class Form extends Component {
 
     if (data.type === 'dateTime') {
       if (typeof data.input.value === 'string' && data.input.value !== "" && !this.props.update) {
-        let date = data.input.value.split(' ')[0];
-        let time = data.input.value.split(' ')[1];
+        const inputValue = data.input.value.replace(new RegExp('-', "g"), '/');
+        let date = inputValue.split(' ')[0];
+        let time = inputValue.split(' ')[1];
+
         let year = parseInt(date.split('/')[2]);
         let month = parseInt(date.split('/')[1]);
         let day = parseInt(date.split('/')[0]);
@@ -43,6 +45,11 @@ class Form extends Component {
 
         currentDateValue = new Date(year, month - 1, day, hour, minute, 0)
       }
+    }
+
+    if (data && data.type === 'dateTime') {
+      console.log(data.input.value)
+      console.log(currentDateValue)
     }
 
     return (
@@ -83,6 +90,8 @@ class Form extends Component {
           disablePast
           label={data.label}
           fullWidth
+          error={false}
+          helperText={null}
         />
         }
         {data && data.type === 'address' &&

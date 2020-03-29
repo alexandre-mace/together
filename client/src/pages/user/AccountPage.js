@@ -9,6 +9,7 @@ import {retrieve} from "../../actions/user/show";
 import {del} from "../../actions/event/delete";
 import {connect} from "react-redux";
 import {Loader} from "../../components/utils/Loader";
+import formatStatus from "../../utils/user/formatStatus";
 
 const AccountPage = props => {
   useEffect(() => {
@@ -32,6 +33,13 @@ const AccountPage = props => {
           <div className="col">
             <Typography variant="h4" component="h4" gutterBottom className={'text-center'}>
               {authentication.currentUserValue.name}
+            </Typography>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <Typography variant="h5" component="h5" gutterBottom className={'text-center'}>
+              {formatStatus(authentication.currentUserValue.status)}
             </Typography>
           </div>
         </div>
