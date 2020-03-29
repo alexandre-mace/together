@@ -42,7 +42,7 @@ const EventMaxPlacesIndicator = ({ maxPlaces, current }) => {
             }}
           />
         </div>
-        <div className={"col-auto pl-0"}>
+        <div className={"col-auto pl-0 max-places-indicator"}>
             <span>
               {current} / {maxPlaces}
             </span>

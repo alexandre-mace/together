@@ -229,6 +229,12 @@ span.logo:hover {
     padding-top: 15px;
     padding-bottom: 15px;
 }
+@media screen and (min-width: 640px) {
+    .full-screen-page-desktop {
+        position: unset;
+        width: auto;
+    }
+}
 svg {
     max-height: 400px;
     max-width: 100%;
@@ -254,4 +260,13 @@ svg {
 }
 .MuiFilledInput-input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 100px #333 inset !important;
+}
+.single-event-paper {
+    background-color: $secondary-color !important;
+    .MuiTypography-root {
+        color: white !important;
+    }
+    .max-places-indicator span {
+        color: white !important;
+    }
 }

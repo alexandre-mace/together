@@ -80,129 +80,129 @@ const SingleEvent = (
     : false;
 
   return (
-    <>
-    <div className="container mt-5 pt-md-5">
-      <div className="row">
-        <div className="col p-0">
-          <IconButton onClick={() => history.goBack()} className={"color-white"}>
-            <ArrowBackIcon/>
-          </IconButton>
+    <div className={"full-screen-page full-screen-page-desktop"}>
+      <div className="container pt-md-5">
+        <div className="row">
+          <div className="col p-0">
+            <IconButton onClick={() => history.goBack()} className={"color-white"}>
+              <ArrowBackIcon/>
+            </IconButton>
+          </div>
         </div>
       </div>
-    </div>
-      <Paper elevation={3} className={"container mt-3 pt-2 pb-3"}>
-      <div className="row mt-3">
-        <div className={"col text-center"}>
-          <Typography variant={"h6"}
-                      className="font-weight-bold">{format(eventDate, 'dd')}/{format(eventDate, 'MM')}</Typography>
-          <Typography variant={"h6"}
-                      className="font-weight-light">{format(eventDate, 'HH')}h{format(eventDate, 'mm') !== 0 ? format(eventDate, 'mm') : ''}</Typography>
+      <Paper elevation={4} className={"container mt-3 pt-2 pb-3 single-event-paper"}>
+        <div className="row mt-3">
+          <div className={"col text-center"}>
+            <Typography variant={"h6"}
+                        className="font-weight-bold">{format(eventDate, 'dd')}/{format(eventDate, 'MM')}</Typography>
+            <Typography variant={"h6"}
+                        className="font-weight-light">{format(eventDate, 'HH')}h{format(eventDate, 'mm') !== 0 ? format(eventDate, 'mm') : ''}</Typography>
+          </div>
+          <div>
+            <div className="col">
+              <Typography variant={"h6"}>
+                {distance ? distance : ''}
+              </Typography>
+            </div>
+          </div>
         </div>
-        <div>
+        <div className="row my-3 align-items-center">
+          <EventMaxPlacesIndicator
+            maxPlaces={item.maxPlaces}
+            current={participants.length}
+          />
+        </div>
+        <div className="row mt-3">
           <div className="col">
-            <Typography variant={"h6"}>
-              {distance ? distance : ''}
+            <Typography variant={"h5"}>{item.name}</Typography>
+          </div>
+        </div>
+        <div className="row mt-3">
+          <div className="col">
+            <Typography variant={"body1"}>{item.description}</Typography>
+          </div>
+        </div>
+        <div className="row mt-5">
+          <div className="col-12">
+            <Typography variant="h6" gutterBottom>
+              Contact
+            </Typography>
+          </div>
+          <div className="col-12">
+            <Typography variant="body1" gutterBottom>
+              Email : {item.organizator.contactEmail ? item.organizator.contactEmail : "Non défini"}
+            </Typography>
+          </div>
+          <div className="col-12">
+            <Typography variant="body1" gutterBottom>
+              Tel : {item.organizator.contactPhone ? item.organizator.contactPhone : "Non défini"}
             </Typography>
           </div>
         </div>
-      </div>
-      <div className="row my-3 align-items-center">
-        <EventMaxPlacesIndicator
-          maxPlaces={item.maxPlaces}
-          current={participants.length}
-        />
-      </div>
-      <div className="row mt-3">
-        <div className="col">
-          <Typography variant={"h5"}>{item.name}</Typography>
+        <div className="row mt-5">
+          <div className="col-12">
+            <Typography variant="h6" gutterBottom>
+              Adresse
+            </Typography>
+          </div>
+          <div className="col-12">
+            <Typography variant="body1" gutterBottom>
+              {item.address}
+            </Typography>
+          </div>
         </div>
-      </div>
-      <div className="row mt-3">
-        <div className="col">
-          <Typography variant={"body1"}>{item.description}</Typography>
-        </div>
-      </div>
-      <div className="row mt-5">
-        <div className="col-12">
-          <Typography variant="h6" gutterBottom>
-            Contact
-          </Typography>
-        </div>
-        <div className="col-12">
-          <Typography variant="body1" gutterBottom>
-            Email : {item.organizator.contactEmail ? item.organizator.contactEmail : "Non défini"}
-          </Typography>
-        </div>
-        <div className="col-12">
-          <Typography variant="body1" gutterBottom>
-            Tel : {item.organizator.contactPhone ? item.organizator.contactPhone : "Non défini"}
-          </Typography>
-        </div>
-      </div>
-      <div className="row mt-5">
-        <div className="col-12">
-          <Typography variant="h6" gutterBottom>
-            Adresse
-          </Typography>
-        </div>
-        <div className="col-12">
-          <Typography variant="body1" gutterBottom>
-            {item.address}
-          </Typography>
-        </div>
-      </div>
-      <div className="row mt-5">
-        <div className={"col-12 d-flex justify-content-between align-items-center w-100 flex-wrap"}>
-          <div className={"col-12 col-md-auto p-0 d-flex flex-column text-center"}>
-            <div>
+        <div className="row mt-5">
+          <div className={"col-12 d-flex justify-content-between align-items-center w-100 flex-wrap"}>
+            <div className={"col-12 col-md-auto p-0 d-flex flex-column text-center"}>
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => appContext.handleMapView(props.event)}
+                  className={"py-3"}
+                  endIcon={<RoomRoundedIcon/>}
+                >
+                  Voir sur la carte
+                </Button>
+              </div>
+            </div>
+            <div className="col-12 mt-3 mt-md-0 p-0 p-md-auto col-md-auto d-flex justify-content-center">
+              {!userParticipates &&
               <Button
                 variant="contained"
-                color="primary"
-                onClick={() => appContext.handleMapView(props.event)}
                 className={"py-3"}
-                endIcon={<RoomRoundedIcon/>}
+                color={userInterested ? 'primary' : 'default'}
+                endIcon={
+                  <Badge badgeContent={interests.length}>
+                    <BookmarkIcon fontSize="large"/>
+                  </Badge>
+                }
+                onClick={() => handleInterest(item)}
               >
-                Voir sur la carte
+                Intéressé
+              </Button>
+              }
+              <Button
+                variant={"contained"}
+                color={userParticipates ? 'primary' : 'default'}
+                className={"ml-3 py-3"}
+                endIcon={
+                  <Badge badgeContent={participants.length}>
+                    {!userParticipates &&
+                    <CalendarTodayIcon className={"fs-60"}/>
+                    }
+                    {userParticipates &&
+                    <EventAvailableIcon fontSize="large"/>
+                    }                    </Badge>
+                }
+                onClick={() => handleParticipate(item)}>
+                Participe
               </Button>
             </div>
           </div>
-          <div className="col-12 mt-3 mt-md-0 col-md-auto d-flex justify-content-center">
-            {!userParticipates &&
-            <Button
-              variant="contained"
-              className={"py-3"}
-              color={userInterested ? 'primary' : 'default'}
-              endIcon={
-                <Badge badgeContent={interests.length}>
-                  <BookmarkIcon fontSize="large"/>
-                </Badge>
-              }
-              onClick={() => handleInterest(item)}
-            >
-              Intéressé
-            </Button>
-            }
-            <Button
-              variant={"contained"}
-              color={userParticipates ? 'primary' : 'default'}
-              className={"ml-3 py-3"}
-              endIcon={
-                <Badge badgeContent={participants.length}>
-                  {!userParticipates &&
-                  <CalendarTodayIcon className={"fs-60"}/>
-                  }
-                  {userParticipates &&
-                  <EventAvailableIcon fontSize="large"/>
-                  }                    </Badge>
-              }
-              onClick={() => handleParticipate(item)}>
-              Participe
-            </Button>
-          </div>
         </div>
-      </div>
       </Paper>
-      </>
+    </div>
   )
 };
 
