@@ -4,15 +4,16 @@ import Register from "../../components/auth/organisms/Register";
 import Typography from "@material-ui/core/Typography";
 import {Link} from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import IconButton from "@material-ui/core/IconButton";
 
 const RegisterPage = (props) => (
   <Layout {...props}>
     <div className="container min-full-screen-page mt-md-5 pt-md-5">
       <div className="row my-3">
         <div className="col">
-          <Link to="/">
-            <ArrowBackIcon/>
-          </Link>
+            <IconButton onClick={() => props.history.push("/")} className={"color-white"}>
+              <ArrowBackIcon/>
+            </IconButton>
         </div>
       </div>
       <div className="row">

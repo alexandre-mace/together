@@ -6,7 +6,6 @@ import {
 import {authentication} from "../../utils/auth/authentication";
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
-import BottomNavigation from "@material-ui/core/BottomNavigation";
 
 const AppTopNavigation = props => (
   <div className={"col-auto"}>
