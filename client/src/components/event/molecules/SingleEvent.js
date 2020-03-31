@@ -158,7 +158,7 @@ const SingleEvent = (
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => appContext.handleMapView(props.event)}
+                  onClick={() => appContext.handleMapView(item)}
                   className={"py-3"}
                   endIcon={<RoomRoundedIcon/>}
                 >
