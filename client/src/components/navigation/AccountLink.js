@@ -15,7 +15,6 @@ const AccountLink = (props) => (
         }>
         Mon compte
       </Button>
-      <AccountCircleRoundedIcon style={{fontSize: "45px"}} className="account-link-icon d-block d-md-none"/>
     </Link>
   </div>
 );

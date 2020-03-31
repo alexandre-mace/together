@@ -20,7 +20,7 @@ import eventRoutes from './routes/event';
 import user from './reducers/user/';
 import userRoutes from './routes/user';
 import './app.scss';
-import DiscoverEventsPage from "./pages/event/DiscoverEventsPage";
+import DiscoverPage from "./pages/DiscoverPage";
 import AccountPage from "./pages/user/AccountPage";
 import OnBoardingPage from "./pages/onboarding/OnBoardingPage";
 import {PrivateRoute} from "./utils/security/PrivateRoute";
@@ -66,7 +66,7 @@ ReactDOM.render(
         <Route path="/confirmation-inscription" component={ConfirmRegistrationPage} />
         <Route path="/confirmation-mission-ajoutée" component={ConfirmEventCreatedPage} />
         <Route path="/bienvenue" component={OnBoardingPage} />
-        <Route path="/" component={DiscoverEventsPage}/>
+        <Route path="/" component={DiscoverPage}/>
         <Route render={() => <h1>Not Found</h1>} />
       </Switch>
     </ConnectedRouter>

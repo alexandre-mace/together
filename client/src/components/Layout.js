@@ -54,7 +54,7 @@ const Layout = (props) => {
               mapCenter: mapCenter,
               handleCloseMapView: handleCloseMapView }
           }>
-            <div className="my-3 my-md-5"></div>
+            <div className="my-0 my-md-5"></div>
             {props.history &&
               <Navigation {...props}/>
             }

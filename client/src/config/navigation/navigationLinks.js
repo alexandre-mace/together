@@ -11,6 +11,13 @@ export const volunteerNavigationLinks = [
     icon: 'agenda',
     private: true
   },
+  {
+    route: 'compte',
+    label: 'Mon compte',
+    icon: 'account',
+    mobile: true,
+    private: true
+  },
 ];
 export const associationNavigationLinks = [
   {
@@ -24,5 +31,12 @@ export const associationNavigationLinks = [
     label: 'Découvrir',
     icon: 'list',
     private: false
+  },
+  {
+    route: 'compte',
+    label: 'Mon compte',
+    icon: 'account',
+    mobile: true,
+    private: true
   },
 ];

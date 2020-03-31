@@ -90,7 +90,7 @@ const AppBottomNavigation = (props) => {
                 const SpecificIcon = bottomNavigationIcons[bottomNavigationLink.icon];
 
                 if ((!authentication.currentUserValue && bottomNavigationLink.private === false) || authentication.currentUserValue) {
-                    return (<BottomNavigationAction key={index} className={classes.bottomNavAction} value={'/' + bottomNavigationLink.route} label={bottomNavigationLink.label}
+                    return (<BottomNavigationAction key={index} className={classes.bottomNavAction + (bottomNavigationLink.mobile ? ' d-block d-md-none' : '' )} value={'/' + bottomNavigationLink.route} label={bottomNavigationLink.label}
                                                     icon={<SpecificIcon/>}/>)
                 }
             })}

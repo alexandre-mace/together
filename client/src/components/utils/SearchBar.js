@@ -94,7 +94,7 @@ const SearchBar = (props) => {
   return (
     <ThemeProvider theme={theme}>
 
-    <div className="container mt-2 mt-md-5">
+    <div className="container">
       <div className="row">
         <div className="col-10 pr-0 col-md-7 offset-md-2">
           <AlgoliaPlaces
