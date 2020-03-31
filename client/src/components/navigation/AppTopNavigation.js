@@ -17,7 +17,7 @@ const AppTopNavigation = props => (
       if ((!authentication.currentUserValue && link.private === false) || authentication.currentUserValue) {
         return (
           <Link key={index} to={`/${link.route}`}>
-            <Button className={"ml-3"} variant={props.location.pathname === `/${link.route}` ? "contained" : "text"} color={'primary'}>{link.label}</Button>
+            <Button className={"ml-3"  + (link.mobile ? ' d-block d-md-none' : '' )} variant={props.location.pathname === `/${link.route}` ? "contained" : "text"} color={'primary'}>{link.label}</Button>
           </Link>
         )
       }
