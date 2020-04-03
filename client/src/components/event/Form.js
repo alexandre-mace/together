@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { DateTimePicker } from "@material-ui/pickers";
 import SearchInput from "../utils/SearchInput";
-import {LinearProgress} from "@material-ui/core";
+import {Checkbox, FormControlLabel, LinearProgress} from "@material-ui/core";
 
 class Form extends Component {
   static propTypes = {
@@ -47,12 +47,7 @@ class Form extends Component {
       }
     }
 
-    if (data && data.type === 'dateTime') {
-      console.log(data.input.value)
-      console.log(currentDateValue)
-    }
-
-    return (
+      return (
       <div className={`form-group`}>
 
         {(data && data.type === 'text' || data.type === 'number') &&
@@ -69,6 +64,20 @@ class Form extends Component {
           multiline={data.multiline}
           rows={data.rows}
         />
+        }
+        {(data && data.type === 'checkbox') &&
+        <FormControlLabel
+          control={
+          <Checkbox
+          {...data.input}
+          checked={data.input.checked}
+          required={data.required}
+          id={`event_${data.input.name}`}
+          color="primary"
+          />
+        }
+          label={data.label}
+          />
         }
         {data && data.type === 'dateTime' &&
         <DateTimePicker
@@ -151,6 +160,12 @@ class Form extends Component {
           label="Adresse"
           required={true}
         />
+        <Field
+          component={this.renderField}
+          name="autoAccept"
+          type="checkbox"
+          label="Auto acceptation de bénévole"
+        />
         {!this.props.loading &&
         <Button color="primary" type="submit" variant="contained">
           {this.props.update ? "Enregistrer les modifications" : "Ajouter la mission"}
@@ -171,6 +186,7 @@ export default reduxForm({
   enableReinitialize: true,
   keepDirtyOnReinitialize: true,
   initialValues: {
-    'date': new Date()
+    'date': new Date(),
+    'autoAccept': false
   }
 })(Form);
