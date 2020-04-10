@@ -10,6 +10,7 @@ import {del} from "../../actions/event/delete";
 import {connect} from "react-redux";
 import {Loader} from "../../components/utils/Loader";
 import formatStatus from "../../utils/user/formatStatus";
+import EditRoundedIcon from "@material-ui/icons/EditRounded";
 
 const AccountPage = props => {
   useEffect(() => {
@@ -41,6 +42,18 @@ const AccountPage = props => {
             <Typography variant="h5" component="h5" gutterBottom className={'text-center'}>
               {formatStatus(authentication.currentUserValue.status)}
             </Typography>
+          </div>
+        </div>
+        <div className="row mt-3">
+          <div className="col text-center">
+            <Button
+              variant="contained"
+              color="default"
+              onClick={() => props.history.push(`/users/edit/${encodeURIComponent(user['@id'])}`)}
+              endIcon={<EditRoundedIcon/>}
+            >
+              Modifier mes informations
+            </Button>
           </div>
         </div>
         <div className="row mt-5">

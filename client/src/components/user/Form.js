@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import {change, Field, reduxForm} from 'redux-form';
 import PropTypes from 'prop-types';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import {LinearProgress} from "@material-ui/core";
 
 class Form extends Component {
   static propTypes = {
@@ -9,8 +12,6 @@ class Form extends Component {
   };
 
   renderField = data => {
-    data.input.className = 'form-control';
-
     const isInvalid = data.meta.touched && !!data.meta.error;
     if (isInvalid) {
       data.input.className += ' is-invalid';
@@ -23,20 +24,22 @@ class Form extends Component {
 
     return (
       <div className={`form-group`}>
-        <label
-          htmlFor={`user_${data.input.name}`}
-          className="form-control-label"
-        >
-          {data.input.name}
-        </label>
-        <input
+
+        {(data && data.type === 'text' || data.type === 'number' || data.type === 'email' || data.type === 'tel') &&
+        <TextField
           {...data.input}
           type={data.type}
+          variant={data.variant}
           step={data.step}
+          label={data.label}
           required={data.required}
           placeholder={data.placeholder}
-          id={`user_${data.input.name}`}
+          id={`event_${data.input.name}`}
+          fullWidth
+          multiline={data.multiline}
+          rows={data.rows}
         />
+        }
         {isInvalid && <div className="invalid-feedback">{data.meta.error}</div>}
       </div>
     );
@@ -47,47 +50,59 @@ class Form extends Component {
       <form onSubmit={this.props.handleSubmit}>
         <Field
           component={this.renderField}
-          name="email"
-          type="email"
-          placeholder=""
-          required={true}
-        />
-        <Field
-          component={this.renderField}
-          name="roles"
-          type="text"
-          placeholder=""
-        />
-        <Field
-          component={this.renderField}
-          name="password"
-          type="text"
-          placeholder="The hashed password"
-          required={true}
-        />
-        <Field
-          component={this.renderField}
           name="name"
           type="text"
+          label="Nom de compte"
+          variant={"filled"}
           placeholder=""
           required={true}
         />
         <Field
           component={this.renderField}
-          name="eventsToParticipate"
-          type="text"
+          name="email"
+          type="email"
+          label="email"
+          variant={"filled"}
           placeholder=""
+          required={true}
         />
         <Field
           component={this.renderField}
-          name="eventsInterestedIn"
-          type="text"
+          name="contactEmail"
+          type="email"
+          label="Email de contact"
+          variant={"filled"}
           placeholder=""
+          required={true}
         />
+        <Field
+          component={this.renderField}
+          name="contactPhone"
+          type="tel"
+          label="Téléphone de contact"
+          variant={"filled"}
+          placeholder=""
+          required={true}
+        />
+        {/*<Field*/}
+        {/*  component={this.renderField}*/}
+        {/*  name="password"*/}
+        {/*  type="text"*/}
+        {/*  variant={"filled"}*/}
+        {/*  placeholder="The hashed password"*/}
+        {/*  required={true}*/}
+        {/*/>*/}
 
-        <button type="submit" className="btn btn-success">
-          Submit
-        </button>
+        {!this.props.loading &&
+        <Button color="primary" type="submit" variant="contained">
+          {this.props.update ? "Enregistrer les modifications" : "Valider"}
+        </Button>
+        }
+        {this.props.loading &&
+        <div className={"w-100"}>
+          <LinearProgress/>
+        </div>
+        }
       </form>
     );
   }

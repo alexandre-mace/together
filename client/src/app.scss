@@ -218,6 +218,9 @@ span.logo:hover {
         top: -15px;
     }
 }
+.halfsized {
+    width: calc(50% - 7.5px);
+}
 .full-screen-page {
     position: absolute;
     top: 0;

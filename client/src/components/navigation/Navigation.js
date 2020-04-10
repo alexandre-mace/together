@@ -3,7 +3,6 @@ import Logo from "./Logo";
 import AccountLink from "./AccountLink";
 import AppBottomNavigation from "./AppBottomNavigation";
 import AppTopNavigation from "./AppTopNavigation";
-import HomeLink from "./HomeLink";
 import {authentication} from "../../utils/auth/authentication";
 
 const Navigation = props => (

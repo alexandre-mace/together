@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import Form from './Form';
 import { retrieve, update, reset } from '../../actions/user/update';
 import { del } from '../../actions/user/delete';
+import {Loader} from "../utils/Loader";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 class Update extends Component {
   static propTypes = {
@@ -44,23 +46,9 @@ class Update extends Component {
 
     return (
       <div>
-        <h1>Edit {item && item['@id']}</h1>
-
-        {this.props.created && (
-          <div className="alert alert-success" role="status">
-            {this.props.created['@id']} created.
-          </div>
-        )}
-        {this.props.updated && (
-          <div className="alert alert-success" role="status">
-            {this.props.updated['@id']} updated.
-          </div>
-        )}
-        {(this.props.retrieveLoading ||
-          this.props.updateLoading ||
-          this.props.deleteLoading) && (
-          <div className="alert alert-info" role="status">
-            Loading...
+        {(this.props.retrieveLoading) && (
+          <div className="mt-5">
+            <Loader/>
           </div>
         )}
         {this.props.retrieveError && (
@@ -82,18 +70,35 @@ class Update extends Component {
           </div>
         )}
 
-        {item && (
-          <Form
-            onSubmit={values => this.props.update(item, values)}
-            initialValues={item}
-          />
-        )}
-        <Link to=".." className="btn btn-primary">
-          Back to list
-        </Link>
-        <button onClick={this.del} className="btn btn-danger">
-          Delete
-        </button>
+        <div className="container mt-5 pt-md-5">
+          <div className="row">
+            <div className="col">
+              <Link to="/compte">
+                <ArrowBackIcon/>
+              </Link>
+            </div>
+          </div>
+          {this.props.updated && (
+            <div className="row mt-3">
+              <div className="col alert alert-success" role="status">
+                Vos informations ont été mises à jour avec succès.
+              </div>
+            </div>
+          )}
+
+          {item && (
+            <div className="row mt-5">
+              <div className="col">
+                <Form
+                  loading={this.props.updateLoading}
+                  update={true}
+                  onSubmit={values => this.props.update(item, values)}
+                  initialValues={item}
+                />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     );
   }

@@ -17,6 +17,7 @@ import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import EventMaxPlacesIndicator from "./EventMaxPlacesIndicator";
 import Button from "@material-ui/core/Button";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
+import Badge from '@material-ui/core/Badge';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -93,11 +94,21 @@ function EventCard(props) {
       </Link>
 
       <CardActions className={'mt-auto d-flex flex-column pt-0'} disableSpacing>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button + " w-100 mb-3"}
+          onClick={() => 1}
+        >
+          <Badge badgeContent={0} color={"error"} showZero>
+          Voir les demandes en attente
+          </Badge>
+        </Button>
         <div className={"d-flex justify-content-between align-items-center w-100"}>
             <Button
               variant="contained"
               color="default"
-              className={classes.button}
+              className={classes.button + " halfsized"}
               onClick={() => props.updateEvent(props.event)}
               endIcon={<EditRoundedIcon/>}
             >
@@ -105,7 +116,7 @@ function EventCard(props) {
             </Button>
             <Button
               variant="contained"
-              className={'color-red'}
+              className={'color-red halfsized'}
               onClick={() => props.deleteEvent(props.event)}
               endIcon={<DeleteForeverRoundedIcon/>}
             >
