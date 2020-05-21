@@ -1,7 +1,7 @@
 const host = "https://push-notification-demo-server.herokuapp.com";
 
 function post(path, body) {
-  return fetch(`${host}${path}`, {
+  return fetch(`https://cors-anywhere.herokuapp.com/${host}${path}`, {
     credentials: "omit",
     headers: { "content-type": "application/json;charset=UTF-8", "sec-fetch-mode": "cors" },
     body: JSON.stringify(body),
@@ -17,7 +17,7 @@ function post(path, body) {
 }
 
 function get(path) {
-  return fetch(`${host}${path}`, {
+  return fetch(`https://cors-anywhere.herokuapp.com/${host}${path}`, {
     credentials: "omit",
     headers: { "content-type": "application/json;charset=UTF-8", "sec-fetch-mode": "cors" },
     method: "GET",
