@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   }
 });
 
-const OnBoarding = () => {
+const OnBoarding = (props) => {
   const classes = useStyles();
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -140,10 +140,13 @@ const OnBoarding = () => {
               />
               <div className="col-12 text-center my-3 d-flex justify-content-center">
                 <Button className={"mr-2 w-100"} variant={"contained"} onClick={handleBack}>Précédent</Button>
-                <Button className={"ml-2 w-100"} variant={"contained"} color={"primary"} onClick={() => localStorage.setItem('action-onboarding', 'true')}>
-                  <Link to={'/'}>
+                <Button className={"ml-2 w-100"} variant={"contained"} color={"primary"} onClick={
+                  () => {
+                    localStorage.setItem('action-onboarding', 'true')
+                    props.history.push('/')
+                  }
+                }>
                     C'est parti !
-                  </Link>
                 </Button>
               </div>
             </div>

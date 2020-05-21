@@ -5,7 +5,7 @@ import OnBoarding from "../../components/onboarding/OnBoarding";
 const OnBoardingPage = props => {
   return (
     <Layout {...props}>
-      <OnBoarding/>
+      <OnBoarding {...props}/>
     </Layout>
   )
 };
