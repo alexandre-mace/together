@@ -30,6 +30,8 @@ import InterestedEventsPage from "./pages/event/InterestedEventsPage";
 import OrganizedEventsPage from "./pages/event/OrganizedEventsPage";
 import ConfirmRegistrationPage from "./pages/auth/ConfirmRegistrationPage";
 import ConfirmEventCreatedPage from "./pages/event/ConfirmEventCreatedPage";
+import MyDemands from "./components/event/organisms/MyDemands";
+import MyDemandsPage from "./pages/event/MyDemandsPage";
 
 window.addEventListener('resize', () => {
   let vh = window.innerHeight * 0.01;
@@ -63,6 +65,7 @@ ReactDOM.render(
         <PrivateRoute path="/compte" component={AccountPage}/>
         <PrivateRoute path="/mon-agenda" component={InterestedEventsPage}/>
         <PrivateRoute path="/mes-missions" component={OrganizedEventsPage}/>
+        <PrivateRoute path="/mes-demandes-en-attente" component={MyDemandsPage}/>
         <Route path="/confirmation-inscription" component={ConfirmRegistrationPage} />
         <Route path="/confirmation-mission-ajoutée" component={ConfirmEventCreatedPage} />
         <Route path="/bienvenue" component={OnBoardingPage} />

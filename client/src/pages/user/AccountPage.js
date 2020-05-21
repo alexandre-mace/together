@@ -33,14 +33,14 @@ const AccountPage = props => {
         <div className="row">
           <div className="col">
             <Typography variant="h4" component="h4" gutterBottom className={'text-center'}>
-              {authentication.currentUserValue.name}
+              {user.name}
             </Typography>
           </div>
         </div>
         <div className="row">
           <div className="col">
             <Typography variant="h5" component="h5" gutterBottom className={'text-center'}>
-              {formatStatus(authentication.currentUserValue.status)}
+              {formatStatus(user.status)}
             </Typography>
           </div>
         </div>
