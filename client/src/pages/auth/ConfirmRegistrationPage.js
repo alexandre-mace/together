@@ -14,7 +14,7 @@ const ConfirmRegistrationPage = (props) => (
         <div className="col-12 text-center mt-5 mb-3">
           <Typography variant="h5" gutterBottom>
             Bravo ! <br/> Vous faites maintenant parti des
-            {authentication.currentUserValue.status === "association" ? "associations" : "membres"} de {PROJECT_NAME} !
+            {authentication.currentUserValue.status === "association" ? " associations" : " membres"} de {PROJECT_NAME} !
           </Typography>
         </div>
         <div className="col-12 col-md-6 mx-auto">
@@ -26,7 +26,7 @@ const ConfirmRegistrationPage = (props) => (
           <Typography variant="body1" gutterBottom>
             {authentication.currentUserValue.status === "association"
               ? "Ajoutez votre mission et recevez le service des bénévoles de la plateforme 😊"
-              : "Découvrez les missions en faveur du climat proches de chez vous 😊"
+              : "Découvrez les missions proches de chez vous 😊"
             }
           </Typography>
         </div>
