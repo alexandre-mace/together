@@ -7,6 +7,9 @@ import {
 } from '../../utils/dataAccess';
 import { success as createSuccess } from './create';
 import { loading, error } from './delete';
+import {authentication} from "../../utils/auth/authentication";
+import {retrieve as userRetrieve} from "../user/show";
+
 
 export function retrieveError(retrieveError) {
   return { type: 'EVENT_UPDATE_RETRIEVE_ERROR', retrieveError };
@@ -124,6 +127,7 @@ export function mercureOpen(eventSource) {
 }
 
 export function mercureMessage(retrieved) {
+  console.log(retrieved)
   return dispatch => {
     if (1 === Object.keys(retrieved).length) {
       dispatch({ type: 'EVENT_UPDATE_MERCURE_DELETED', retrieved });

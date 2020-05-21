@@ -9,11 +9,16 @@ import AppContext from "../config/context/appContext";
 import Navigation from "./navigation/Navigation";
 import Map from "./map/LeafletMap";
 import {authentication} from "../utils/auth/authentication";
+import {retrieve, reset} from "../actions/user/show";
+import {update} from "../actions/user/update";
+import isBefore from 'date-fns/isBefore'
 
 const Layout = (props) => {
   const [userPosition, setUserPosition] = useState({ latitude: 44.8337080, longitude: -0.5821208, addressName:  "38 Rue Lacornée, 33000 Bordeaux France" });
   const [mapCenter, setMapCenter] = useState([ 44.8337080, -0.5821208]);
   const [mapView, setMapView] = useState(false);
+  const [currentRatedEvent, setCurrentRatedEvent] = useState(false);
+  const [eventsToRate, setEventsToRate] = useState([]);
 
   const handleMapView = event => {
     setMapCenter([event.latitude, event.longitude]);
@@ -28,22 +33,57 @@ const Layout = (props) => {
       props.history.push('/bienvenue')
     }
 
+    if (authentication.currentUserValue) {
+      props.retrieve('/users/' + decodeURIComponent(authentication.currentUserValue.id));
+    }
+
     if (authentication.currentUserValue && authentication.currentUserValue.status === "association" && !localStorage.getItem("associationRedirect")) {
       props.history.push('/mes-missions');
-      localStorage.setItem("associationRedirect", "true")
+      localStorage.setItem("associationRedirect", "true");
     }
   }, []);
 
+
+  useEffect(() => {
+    if (currentRatedEvent) {
+      props.history.push(`/users/rate/${encodeURIComponent(currentRatedEvent['organizator']['@id'])}`)
+    }
+  }, [currentRatedEvent])
+
+  const user = (props.updated && props.updated['@id'] === authentication.currentUserValue['@id']) ? props.updated : props.retrieved ? props.retrieved : false;
+  //
+  // let notifications = 0;
+  //
+  if (user) {
+    // notifications = user.initiatedProjects.reduce(function (accumulateur, currentProject) {
+    //   return accumulateur + currentProject.joinDemands.filter(demand => (demand.status === 'En attente')).length;
+    // }, 0);
+    if (user.participatedEvents) {
+      const calculatedEventsToRate = user.participatedEvents
+        .filter((event) => !user.ratedEvents.includes(event.id))
+        .filter((event) => isBefore(new Date(event.date), new Date()));
+
+      if (eventsToRate.length !== calculatedEventsToRate.length) {
+        setEventsToRate(calculatedEventsToRate);
+        if (calculatedEventsToRate.length === 0) {
+          setCurrentRatedEvent(false);
+          props.history.push(`/`)
+        }
+      }
+
+      if (calculatedEventsToRate.length > 0) {
+        if (!currentRatedEvent || currentRatedEvent['@id'] !== calculatedEventsToRate[0]['@id']) {
+          setCurrentRatedEvent(calculatedEventsToRate[0]);
+        }
+      }
+    }
+  }
+
+  // if (user && user.ratedEvents.length > 0) {
+  //   props.update(user, {ratedEvents: []});
+  // }
+
   return (
-    // const user = this.props.updated ? this.props.updated : this.props.retrieved) : false;
-    //
-    // let notifications = 0;
-    //
-    // if (user) {
-    //   notifications = user.initiatedProjects.reduce(function (accumulateur, currentProject) {
-    //     return accumulateur + currentProject.joinDemands.filter(demand => (demand.status === 'En attente')).length;
-    //   }, 0);
-    // }
       <ThemeProvider theme={theme}>
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
           <AppContext.Provider value={
@@ -52,6 +92,9 @@ const Layout = (props) => {
               mapView: mapView,
               handleMapView: handleMapView,
               mapCenter: mapCenter,
+              user: user,
+              currentRatedEvent: currentRatedEvent,
+              eventsToRate: eventsToRate,
               handleCloseMapView: handleCloseMapView }
           }>
             <div className="my-0 my-md-5"></div>
@@ -74,13 +117,14 @@ const Layout = (props) => {
     );
 }
 const mapStateToProps = state => ({
-  // updated: state.user.update.updated,
-  // retrieved: state.user.show.retrieved,
+  updated: state.user.update.updated,
+  retrieved: state.user.show.retrieved,
 });
 
 const mapDispatchToProps = dispatch => ({
-  // retrieve: id => dispatch(retrieve(id)),
-  // reset: eventSource => dispatch(reset(eventSource)),
+  retrieve: id => dispatch(retrieve(id)),
+  update: (item, values) => dispatch(update(item, values)),
+  reset: eventSource => dispatch(reset(eventSource)),
 });
 
 export default connect(

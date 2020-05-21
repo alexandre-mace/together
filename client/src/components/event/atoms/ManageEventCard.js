@@ -98,9 +98,9 @@ function EventCard(props) {
           variant="contained"
           color="primary"
           className={classes.button + " w-100 mb-3"}
-          onClick={() => 1}
+          onClick={() => props.history.push('/mes-demandes-en-attente')}
         >
-          <Badge badgeContent={0} color={"error"} showZero>
+          <Badge badgeContent={props.event.pendingParticipants.length} color={"error"} showZero>
           Voir les demandes en attente
           </Badge>
         </Button>
@@ -116,9 +116,10 @@ function EventCard(props) {
             </Button>
             <Button
               variant="contained"
-              className={'color-red halfsized'}
+              className={'color-red halfsized px-0'}
+              size={"medium"}
               onClick={() => props.deleteEvent(props.event)}
-              endIcon={<DeleteForeverRoundedIcon/>}
+              endIcon={<DeleteForeverRoundedIcon fontSize={"large"}/>}
             >
               Supprimer
             </Button>

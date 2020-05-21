@@ -31,7 +31,7 @@ export function retrieve(id) {
           .then(retrieved => ({ retrieved, hubURL: extractHubURL(response) }))
       )
       .then(({ retrieved, hubURL }) => {
-        retrieved = normalize(retrieved);
+        // retrieved = normalize(retrieved);
 
         dispatch(retrieveLoading(false));
         dispatch(retrieveSuccess(retrieved));
@@ -63,7 +63,8 @@ export function update(item, values) {
     dispatch(createSuccess(null));
     dispatch(updateLoading(true));
 
-    return fetch(item['@id'], {
+    const userToFetch = item['@id'] ? item['@id'] : item;
+    return fetch(userToFetch, {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/ld+json' }),
       body: JSON.stringify(values)
@@ -74,7 +75,7 @@ export function update(item, values) {
           .then(retrieved => ({ retrieved, hubURL: extractHubURL(response) }))
       )
       .then(({ retrieved, hubURL }) => {
-        retrieved = normalize(retrieved);
+        // retrieved = normalize(retrieved);
 
         dispatch(updateLoading(false));
         dispatch(updateSuccess(retrieved));
@@ -120,6 +121,7 @@ export function mercureOpen(eventSource) {
 }
 
 export function mercureMessage(retrieved) {
+  console.log(retrieved)
   return dispatch => {
     if (1 === Object.keys(retrieved).length) {
       dispatch({ type: 'USER_UPDATE_MERCURE_DELETED', retrieved });

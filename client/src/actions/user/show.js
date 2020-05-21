@@ -18,6 +18,7 @@ export function success(retrieved) {
 }
 
 export function retrieve(id) {
+  console.log(id)
   return dispatch => {
     dispatch(loading(true));
 
@@ -53,6 +54,8 @@ export function reset(eventSource) {
 }
 
 export function mercureSubscribe(hubURL, topic) {
+  console.log(hubURL)
+  console.log(topic)
   return dispatch => {
     const eventSource = subscribe(hubURL, [topic]);
     dispatch(mercureOpen(eventSource));
@@ -67,6 +70,7 @@ export function mercureOpen(eventSource) {
 }
 
 export function mercureMessage(retrieved) {
+  console.log(retrieved)
   return dispatch => {
     if (1 === Object.keys(retrieved).length) {
       dispatch({ type: 'USER_SHOW_MERCURE_DELETED', retrieved });

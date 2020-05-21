@@ -74,7 +74,7 @@ function EventCard(props) {
     }
 
     if (interests.includes(authentication.currentUserValue['@id'])) {
-      let eventInterestsWithoutUser = event.interests.filter(user => user !== authentication.currentUserValue['@id']);
+      let eventInterestsWithoutUser = event.interests.filter(user => user['@id'] !== authentication.currentUserValue['@id']);
       props.update(event, {interests: eventInterestsWithoutUser})
     } else {
       props.update(event, {interests: [...event.interests, authentication.currentUserValue['@id']]})
@@ -88,7 +88,7 @@ function EventCard(props) {
     }
 
     if (participants.includes(authentication.currentUserValue['@id'])) {
-      let eventParticipantsWithoutUser = event.participants.filter(user => user !== authentication.currentUserValue['@id']);
+      let eventParticipantsWithoutUser = event.participants.filter(user => user['@id'] !== authentication.currentUserValue['@id']);
       props.update(event, {participants: eventParticipantsWithoutUser})
     } else {
       props.update(event, {participants: [...event.participants, authentication.currentUserValue['@id']]})

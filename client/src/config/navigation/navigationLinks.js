@@ -21,6 +21,12 @@ export const volunteerNavigationLinks = [
 ];
 export const associationNavigationLinks = [
   {
+    route: 'mes-demandes-en-attente',
+    label: 'Mes demandes en attente',
+    icon: 'folder',
+    private: true
+  },
+  {
     route: 'mes-missions',
     label: 'Mes missions',
     icon: 'folder',

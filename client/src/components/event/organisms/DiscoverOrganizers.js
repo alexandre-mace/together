@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 const DiscoverOrganizers = props => {
   const [allOrganizers, setAllOrganizers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState(false);
 
   const appContext = useContext(AppContext);
 
@@ -32,9 +33,11 @@ const DiscoverOrganizers = props => {
     }
   }
 
-  const organizers = allOrganizers.filter(organizer => organizer.status === "association");
+  let organizers = allOrganizers.filter(organizer => organizer.status === "association");
+  if (search && search !== '') {
+    organizers = organizers.filter(organizer => organizer.name.toLowerCase().includes(search));
+  }
 
-  console.log(organizers)
   return (
     <>
       {(loading || props.loading) &&
@@ -47,6 +50,9 @@ const DiscoverOrganizers = props => {
               <Autocomplete
                 id="combo-box-demo"
                 options={organizers}
+                onInputChange={(event, value) => {
+                  setSearch(value)
+                }}
                 className={"mx-auto"}
                 getOptionLabel={(option) => option.name}
                 style={{ maxWidth: 300 }}

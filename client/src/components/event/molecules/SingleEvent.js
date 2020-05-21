@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
+import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
 import React, {useContext, useState} from "react";
 import displayMeters from "../../../utils/geocoding/displayMeters";
 import getDistance from "geolib/es/getDistance";
@@ -16,6 +17,7 @@ import redirectToLoginIfNoUser from "../../../utils/security/redirectToLoginIfNo
 import AppContext from "../../../config/context/appContext";
 import {reset, retrieve} from "../../../actions/event/show";
 import {update} from "../../../actions/event/update";
+import {update as updateUser} from "../../../actions/user/update";
 import {connect} from "react-redux";
 import Paper from '@material-ui/core/Paper';
 
@@ -27,9 +29,11 @@ const SingleEvent = (
   }) => {
   const [interests, setInterests] = useState(item.interests);
   const [participants, setParticipants] = useState(item.participants);
+  const [pendingParticipants, setPendingParticipants] = useState(item.pendingParticipants);
 
   const appContext = useContext(AppContext);
 
+  console.log("hi")
   const handleInterest = (event) => {
     if (!authentication.currentUserValue) {
       redirectToLoginIfNoUser(history);
@@ -37,7 +41,7 @@ const SingleEvent = (
     }
 
     if (interests.includes(authentication.currentUserValue['@id'])) {
-      let eventInterestsWithoutUser = event.interests.filter(user => user !== authentication.currentUserValue['@id']);
+      let eventInterestsWithoutUser = event.interests.filter(userId => userId !== authentication.currentUserValue['@id']);
       props.update(event, {interests: eventInterestsWithoutUser})
     } else {
       props.update(event, {interests: [...event.interests, authentication.currentUserValue['@id']]})
@@ -50,11 +54,24 @@ const SingleEvent = (
       return;
     }
 
+    console.log(event.organizator)
     if (participants.includes(authentication.currentUserValue['@id'])) {
-      let eventParticipantsWithoutUser = event.participants.filter(user => user !== authentication.currentUserValue['@id']);
+      let eventParticipantsWithoutUser = event.participants.filter(userId => userId !== authentication.currentUserValue['@id']);
       props.update(event, {participants: eventParticipantsWithoutUser})
-    } else {
-      props.update(event, {participants: [...event.participants, authentication.currentUserValue['@id']]})
+      props.updateUser(event.organizator, {'name': 'test5'})
+    } else if (pendingParticipants.includes(authentication.currentUserValue['@id'])) {
+      let eventParticipantsWithoutUser = event.pendingParticipants.filter(userId => userId !== authentication.currentUserValue['@id']);
+      props.update(event, {pendingParticipants: eventParticipantsWithoutUser})
+      props.updateUser(event.organizator, {'name': 'test5'})
+    }
+    else {
+      if (event.autoAccept) {
+        props.update(event, {participants: [...event.participants, authentication.currentUserValue['@id']]})
+        props.updateUser(event.organizator, {'name': 'test5'})
+      } else {
+        props.update(event, {pendingParticipants: [...event.pendingParticipants, authentication.currentUserValue['@id']]})
+        props.updateUser(event.organizator, {'name': 'test5'})
+      }
     }
   };
 
@@ -63,6 +80,9 @@ const SingleEvent = (
     : false;
   const userParticipates = authentication.currentUserValue
     ? participants.includes(authentication.currentUserValue['@id'])
+    : false;
+  const userPendingParticipates = authentication.currentUserValue
+    ? pendingParticipants.includes(authentication.currentUserValue['@id'])
     : false;
 
   let eventDate = new Date(item.date.slice(0, 19));
@@ -75,6 +95,10 @@ const SingleEvent = (
     setParticipants(props.updated.participants)
   }
 
+  if (props.updated && props.updated['@id'] === item['@id'] && pendingParticipants.length !== props.updated.pendingParticipants.length) {
+    setPendingParticipants(props.updated.pendingParticipants)
+  }
+
   let distance = appContext.userPosition
     ? displayMeters(getDistance({ latitude: item.latitude, longitude: item.longitude} , {latitude: appContext.userPosition.latitude, longitude: appContext.userPosition.longitude}))
     : false;
@@ -84,7 +108,10 @@ const SingleEvent = (
       <div className="container pt-md-5">
         <div className="row">
           <div className="col p-0">
-            <IconButton onClick={() => history.goBack()} className={"color-white"}>
+            <IconButton onClick={() => {
+              props.reset();
+              history.goBack()
+            }} className={"color-white"}>
               <ArrowBackIcon/>
             </IconButton>
           </div>
@@ -92,6 +119,11 @@ const SingleEvent = (
       </div>
       <Paper elevation={4} className={"container mt-3 pt-2 pb-3 single-event-paper"}>
         <div className="row mt-3">
+          {item.autoAccept &&
+            <div className="col-auto">
+                <OfflineBoltIcon/>
+            </div>
+          }
           <div className={"col text-center"}>
             <Typography variant={"h6"}
                         className="font-weight-bold">{format(eventDate, 'dd')}/{format(eventDate, 'MM')}</Typography>
@@ -169,7 +201,7 @@ const SingleEvent = (
             {(!authentication.currentUserValue ||
               authentication.currentUserValue && authentication.currentUserValue.status === 'volunteer') &&
             <div className="col-12 mt-3 mt-md-0 p-0 p-md-auto col-md-auto d-flex justify-content-center">
-              {!userParticipates &&
+              {(!userParticipates && !userPendingParticipates) &&
               <Button
                 variant="contained"
                 className={"py-3"}
@@ -186,7 +218,7 @@ const SingleEvent = (
               }
               <Button
                 variant={"contained"}
-                color={userParticipates ? 'primary' : 'default'}
+                color={(userParticipates || userPendingParticipates) ? 'primary' : 'default'}
                 className={"ml-3 py-3"}
                 endIcon={
                   <Badge badgeContent={participants.length}>
@@ -198,7 +230,7 @@ const SingleEvent = (
                     }                    </Badge>
                 }
                 onClick={() => handleParticipate(item)}>
-                Participe
+                {userPendingParticipates ? 'Demande envoyée' : 'Participe'}
               </Button>
             </div>
             }
@@ -222,6 +254,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   retrieve: id => dispatch(retrieve(id)),
   update: (item, values) => dispatch(update(item, values)),
+  updateUser: (item, values) => dispatch(updateUser(item, values)),
   reset: eventSource => dispatch(reset(eventSource))
 });
 
