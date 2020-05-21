@@ -11,18 +11,18 @@ import {reset} from "../../../actions/event/show";
 import usePushNotifications from "../../../utils/notification/usePushNotification";
 
 const MyDemands = (props) => {
-  const {
-    userConsent,
-    pushNotificationSupported,
-    userSubscription,
-    onClickAskUserPermission,
-    onClickSusbribeToPushNotification,
-    onClickSendSubscriptionToPushServer,
-    pushServerSubscriptionId,
-    onClickSendNotification,
-    error,
-    loading
-  } = usePushNotifications();
+  // const {
+  //   userConsent,
+  //   pushNotificationSupported,
+  //   userSubscription,
+  //   onClickAskUserPermission,
+  //   onClickSusbribeToPushNotification,
+  //   onClickSendSubscriptionToPushServer,
+  //   pushServerSubscriptionId,
+  //   onClickSendNotification,
+  //   error,
+  //   loading
+  // } = usePushNotifications();
 
   useEffect(() => {
     props.retrieve(authentication.currentUserValue['@id']);
@@ -32,8 +32,6 @@ const MyDemands = (props) => {
 
   let events = false;
   if (user) {
-    console.log(user.organizedEvents)
-    console.log(user)
      if (user.organizedEvents.length > 0 && typeof user.organizedEvents[0].pendingParticipants === "undefined") {
       props.retrieve(authentication.currentUserValue['@id']);
      } else {
@@ -76,10 +74,10 @@ const MyDemands = (props) => {
         </div>
       )}
 
-      <button onClick={onClickAskUserPermission}>Ask user permission</button>
-      <button onClick={onClickSusbribeToPushNotification}>Create Notification subscription</button>
-      <button onClick={onClickSendSubscriptionToPushServer}>Send subscription to push server</button>
-      <button onClick={onClickSendNotification}>Send a notification</button>
+      {/*<button onClick={onClickAskUserPermission}>Ask user permission</button>*/}
+      {/*<button onClick={onClickSusbribeToPushNotification}>Create Notification subscription</button>*/}
+      {/*<button onClick={onClickSendSubscriptionToPushServer}>Send subscription to push server</button>*/}
+      {/*<button onClick={onClickSendNotification}>Send a notification</button>*/}
 
       {(!props.loading && user) &&
       <>
