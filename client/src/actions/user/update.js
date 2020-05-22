@@ -67,7 +67,7 @@ export function update(item, values) {
     return fetch(userToFetch, {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/ld+json' }),
-      body: JSON.stringify(values)
+      body: JSON.stringify(normalize(values))
     })
       .then(response =>
         response
