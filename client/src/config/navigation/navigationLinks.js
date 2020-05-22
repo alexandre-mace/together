@@ -22,13 +22,13 @@ export const volunteerNavigationLinks = [
 export const associationNavigationLinks = [
   {
     route: 'mes-demandes-en-attente',
-    label: 'Mes demandes en attente',
+    label: 'Demandes',
     icon: 'folder',
     private: true
   },
   {
     route: 'mes-missions',
-    label: 'Mes missions',
+    label: 'Missions',
     icon: 'folder',
     private: true
   },

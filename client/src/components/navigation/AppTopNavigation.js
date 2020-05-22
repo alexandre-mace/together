@@ -6,6 +6,7 @@ import {
 import {authentication} from "../../utils/auth/authentication";
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import Badge from "@material-ui/core/Badge";
 
 const AppTopNavigation = props => (
   <div className={"col-auto"}>
@@ -16,7 +17,10 @@ const AppTopNavigation = props => (
       if ((!authentication.currentUserValue && link.private === false) || authentication.currentUserValue) {
         return (
           <Link key={index} to={`/${link.route}`}>
-            <Button className={"ml-3"  + (link.mobile ? ' d-block d-md-none' : '' )} variant={props.location.pathname === `/${link.route}` ? "contained" : "text"} color={'primary'}>{link.label}</Button>
+            <Button className={"ml-3"  + (link.mobile ? ' d-block d-md-none' : '' )} variant={props.location.pathname === `/${link.route}` ? "contained" : "text"} color={'primary'}>
+              {(link.label === "Demandes" && props.user && props.user.organizedEvents.length > 0 && typeof props.user.organizedEvents[0].pendingParticipants !== "undefined") && <Badge variant={"dot"} badgeContent={props.user.organizedEvents.filter(event => event.pendingParticipants.length > 0).length} color={'error'}>{link.label}</Badge>}
+              {(link.label !== "Demandes" || !props.user) && link.label}
+            </Button>
           </Link>
         )
       }

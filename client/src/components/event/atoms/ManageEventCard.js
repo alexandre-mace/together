@@ -67,27 +67,18 @@ function EventCard(props) {
         <CardHeader
           classes={{title: classes.title}}
           title={`${props.event.name.substring(0, 60)} ${props.event.name.length > 58 ? '...' : ''}`}
-          subheader={<div className={"d-flex w-100 justify-content-between"}>
+          subheader={<div className={"mt-2 d-flex w-100 justify-content-between"}>
             <div>{props.event.interests.length} {props.event.interests.length > 1 ? "intéressés" : "intéressé"}</div>
             <div>{props.event.participants.length} {props.event.participants.length > 1 ? "participants" : "participant"}</div>
           </div>}
         />
         <CardContent classes={{root: classes.root}} className={"pb-0 pb-md-3"}>
-          <div className="row my-1 align-items-center">
-            <EventMaxPlacesIndicator
-              maxPlaces={props.event.maxPlaces}
-              current={props.event.participants.length}
-            />
-          </div>
           <div className="d-flex flex-column w-100">
-            <div className={"d-none d-md-flex"}>
-              <Typography variant={"body1"} >{props.event.description}</Typography>
-            </div>
             <div>
               <Typography variant={"body1"} className="mt-2 font-weight-light">{props.event.address}</Typography>
             </div>
             <div>
-              <Typography variant={"h6"} >{format(eventDate, 'HH')}h{format(eventDate, 'mm') !== 0 ? format(eventDate, 'mm') : ''}</Typography>
+              <Typography variant={"body1"} className={"mt-2"} ><b>{format(eventDate, 'HH')}h{format(eventDate, 'mm') !== 0 ? format(eventDate, 'mm') : ''}</b></Typography>
             </div>
           </div>
         </CardContent>

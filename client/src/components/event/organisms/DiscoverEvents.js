@@ -5,6 +5,7 @@ import SearchBar from "../../utils/SearchBar";
 import FullScreenLoader from "../../utils/FullScreenLoader";
 import EventsAgenda from "../molecules/EventsAgenda";
 import {list, reset} from "../../../actions/event/list";
+import {del} from "../../../actions/event/delete";
 import {connect} from "react-redux";
 import AppContext from "../../../config/context/appContext";
 import NoDataSvg from "../../../utils/svg/NoDataSvg";
@@ -134,6 +135,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => ({
   list: page => dispatch(list(page)),
+  delete: event => dispatch(del(event)),
   reset: eventSource => dispatch(reset(eventSource))
 });
 

@@ -7,6 +7,7 @@ import { del } from '../../../actions/event/delete';
 import ManagePendingDemands from "../molecules/ManagePendingDemands";
 import BeerCelebrationSvg from "../../../utils/svg/BeerCelebrationSvg";
 import {update} from "../../../actions/event/update";
+import {update as updateUser} from "../../../actions/user/update";
 import {reset} from "../../../actions/event/show";
 import usePushNotifications from "../../../utils/notification/usePushNotification";
 
@@ -54,8 +55,10 @@ const MyDemands = (props) => {
   const acceptDemand = (event, participant) => {
     let eventParticipantsWithoutUser = event.pendingParticipants.filter(user => user['@id'] !== participant['@id']);
     props.update(event, {pendingParticipants: eventParticipantsWithoutUser.map(loopParticipant => loopParticipant['@id'])}).then(() => {
-      props.update(event, {participants: [...(event.participants.map(loopParticipant => loopParticipant['@id'])), participant['@id']]}).then(() =>
-        props.retrieve(authentication.currentUserValue['@id'])
+      props.update(event, {participants: [...(event.participants.map(loopParticipant => loopParticipant['@id'])), participant['@id']]}).then(() => {
+          props.updateUser(participant, {updatedAt: new Date()})
+          props.retrieve(authentication.currentUserValue['@id'])
+        }
       )
     })
   };
@@ -81,9 +84,6 @@ const MyDemands = (props) => {
 
       {(!props.loading && user) &&
       <>
-        <div>
-          {user.name}
-        </div>
         <div className="container mt-4 mb-3">
           {events && events.length === 0 &&
           <div className="row mt-5 pt-5">
@@ -135,6 +135,7 @@ const mapDispatchToProps = dispatch => ({
   del: item => dispatch(del(item)),
   reset: eventSource => dispatch(reset(eventSource)),
   update: (item, values) => dispatch(update(item, values)),
+  updateUser: (item, values) => dispatch(updateUser(item, values)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyDemands);

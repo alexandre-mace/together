@@ -15,6 +15,8 @@ import BookmarksRoundedIcon from '@material-ui/icons/BookmarksRounded';
 import FolderSharedRoundedIcon from '@material-ui/icons/FolderSharedRounded';
 import EventRoundedIcon from '@material-ui/icons/EventRounded';
 import {COLOR_SECONDARY} from "../../config/project";
+import Badge from "@material-ui/core/Badge";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
     root: {
@@ -90,7 +92,12 @@ const AppBottomNavigation = (props) => {
                 const SpecificIcon = bottomNavigationIcons[bottomNavigationLink.icon];
 
                 if ((!authentication.currentUserValue && bottomNavigationLink.private === false) || authentication.currentUserValue) {
-                    return (<BottomNavigationAction key={index} className={classes.bottomNavAction + (bottomNavigationLink.mobile ? ' d-block d-md-none' : '' )} value={'/' + bottomNavigationLink.route} label={bottomNavigationLink.label}
+                    return (<BottomNavigationAction key={index} className={classes.bottomNavAction + (bottomNavigationLink.mobile ? ' d-block d-md-none' : '' )} value={'/' + bottomNavigationLink.route} label={
+                      <>
+                      {(bottomNavigationLink.label === "Demandes" && props.user && props.user.organizedEvents.length > 0 && typeof props.user.organizedEvents[0].pendingParticipants !== "undefined") && <Badge variant={"dot"} badgeContent={props.user.organizedEvents.filter(event => event.pendingParticipants.length > 0).length} color={'error'}>{bottomNavigationLink.label}</Badge>}
+                    {(bottomNavigationLink.label !== "Demandes" || !props.user) && bottomNavigationLink.label}
+                      </>
+                    }
                                                     icon={<SpecificIcon/>}/>)
                 }
             })}

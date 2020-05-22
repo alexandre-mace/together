@@ -19,7 +19,7 @@ const ManageEvents = (props) => {
             event={event}
             index={index}
           />
-          <div className={"col-12 col-md-4 mt-3"} key={index}>
+          <div className={"col-12 col-md-6 col-lg-4 mt-3"} key={index}>
             <ManageEventCard
               event={event}
               history={props.history}

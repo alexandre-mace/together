@@ -11,6 +11,10 @@ function Show(props) {
 
   const item = props.retrieved;
 
+  if (item && item.organizator && !item.organizator.name) {
+    props.retrieve(decodeURIComponent(props.match.params.id));
+  }
+
   return (
     <div>
       {props.loading && (
@@ -35,6 +39,7 @@ function Show(props) {
 
 const mapStateToProps = state => ({
   retrieved: state.event.show.retrieved,
+  updated: state.event.show.updated,
   error: state.event.show.error,
   loading: state.event.show.loading,
   eventSource: state.event.show.eventSource,

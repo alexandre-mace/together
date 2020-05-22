@@ -61,7 +61,9 @@ const Layout = (props) => {
     if (user.participatedEvents) {
       const calculatedEventsToRate = user.participatedEvents
         .filter((event) => !user.ratedEvents.includes(event.id))
-        .filter((event) => isBefore(new Date(event.date), new Date()));
+        .filter((event) => isBefore(new Date(event.date).setHours(new Date().getHours() - 2), new Date()));
+      console.log(user.participatedEvents
+        .filter((event) => !user.ratedEvents.includes(event.id)).filter((event) => { console.log(event.date); console.log(new Date(event.date).setHours(new Date().getHours() - 2)); console.log(new Date()); return isBefore(new Date(event.date), new Date())}))
 
       if (eventsToRate.length !== calculatedEventsToRate.length) {
         setEventsToRate(calculatedEventsToRate);
@@ -99,7 +101,7 @@ const Layout = (props) => {
           }>
             <div className="my-0 my-md-5"></div>
             {props.history &&
-              <Navigation {...props}/>
+              <Navigation {...props} user={user}/>
             }
             <div className={"bottom-navigation-padding"}>
               {props.children}

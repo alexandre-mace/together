@@ -4,21 +4,16 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
 import Link from "react-router-dom/es/Link";
-import {Badge} from "@material-ui/core";
 import {connect} from "react-redux";
 import {Typography} from "@material-ui/core";
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-import BookmarkIcon from '@material-ui/icons/Bookmark';
 import format from 'date-fns/format'
 import RoomRoundedIcon from '@material-ui/icons/RoomRounded';
 import {reset, retrieve, update} from "../../../actions/event/update";
 import {del} from "../../../actions/event/delete";
 import {authentication} from "../../../utils/auth/authentication";
 import redirectToLoginIfNoUser from "../../../utils/security/redirectToLoginIfNoUser";
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import EventMaxPlacesIndicator from "./EventMaxPlacesIndicator";
 import Button from '@material-ui/core/Button';
 
@@ -59,11 +54,6 @@ function EventCard(props) {
 
   const [interests, setInterests] = useState(props.event.interests);
   const [participants, setParticipants] = useState(props.event.participants);
-
-  // let totalMessages = 0;
-  // if (props.event.forum) {
-  //   totalMessages = props.event.forum.messages.length
-  // }
 
   let eventDate = new Date(props.event.date.slice(0, 19));
 
@@ -125,12 +115,7 @@ function EventCard(props) {
           />
         </div>
         <CardContent classes={{root: classes.root}} className={"pb-0 pb-md-3"}>
-          <div className="d-flex flex-column w-100">
-            <div className={"d-none d-md-flex"}>
-              <Typography variant={"body1"} >{props.event.description}</Typography>
-            </div>
-          </div>
-          <div className={"d-flex justify-content-between align-items-center pt-3 w-100"}>
+          <div className={"d-flex justify-content-between align-items-center pt-2 w-100"}>
             <div>
               <Typography variant={"h6"}>{format(eventDate, 'HH')}h{format(eventDate, 'mm') !== 0 ? format(eventDate, 'mm') : ''}</Typography>
             </div>
@@ -144,41 +129,28 @@ function EventCard(props) {
       </Link>
 
       <CardActions className={'mt-auto d-flex flex-column pt-0'} disableSpacing>
-
-        <div className={"d-flex justify-content-between align-items-center w-100"}>
+        <div className={"d-flex justify-content-between align-items-center w-100 button-with-fullwidth-link"}>
+          <Link to={`/events/show/${encodeURIComponent(props.event['@id'])}`}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              fullWidth
+            >
+              Voir le projet
+            </Button>
+          </Link>
+        </div>
+        <div className={"d-flex mt-2 justify-content-between align-items-center w-100"}>
           <Button
             variant="contained"
-            color="primary"
-            className={classes.button}
+            className={classes.button + " custom-primary-button"}
             fullWidth
             onClick={() => props.handleMapView(props.event)}
             endIcon={<RoomRoundedIcon/>}
           >
             Voir sur la carte
           </Button>
-          {/*<div className="d-flex">*/}
-          {/*  <IconButton*/}
-          {/*    color={userInterested ? 'primary' : 'secondary'}*/}
-          {/*    size="medium"*/}
-          {/*    onClick={() => handleInterest(props.event)}>*/}
-          {/*    <Badge badgeContent={interests.length}>*/}
-          {/*      <BookmarkIcon fontSize="large"/>*/}
-          {/*    </Badge>*/}
-          {/*  </IconButton>*/}
-          {/*  <IconButton*/}
-          {/*    color={'primary'}*/}
-          {/*    size="medium"*/}
-          {/*    onClick={() => handleParticipate(props.event)}>*/}
-          {/*    <Badge badgeContent={participants.length}>*/}
-          {/*      {!userParticipates &&*/}
-          {/*      <CalendarTodayIcon className={"fs-60"}/>*/}
-          {/*      }*/}
-          {/*      {userParticipates &&*/}
-          {/*      <EventAvailableIcon fontSize="large"/>*/}
-          {/*      }*/}
-          {/*    </Badge>*/}
-          {/*  </IconButton>*/}
-          {/*</div>*/}
         </div>
       </CardActions>
     </Card>

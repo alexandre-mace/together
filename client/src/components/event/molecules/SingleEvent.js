@@ -20,6 +20,7 @@ import {update} from "../../../actions/event/update";
 import {update as updateUser} from "../../../actions/user/update";
 import {connect} from "react-redux";
 import Paper from '@material-ui/core/Paper';
+import StarIcon from '@material-ui/icons/Star';
 
 const SingleEvent = (
   {
@@ -33,7 +34,6 @@ const SingleEvent = (
 
   const appContext = useContext(AppContext);
 
-  console.log("hi")
   const handleInterest = (event) => {
     if (!authentication.currentUserValue) {
       redirectToLoginIfNoUser(history);
@@ -54,7 +54,6 @@ const SingleEvent = (
       return;
     }
 
-    console.log(event.organizator)
     if (participants.includes(authentication.currentUserValue['@id'])) {
       let eventParticipantsWithoutUser = event.participants.filter(userId => userId !== authentication.currentUserValue['@id']);
       props.update(event, {participants: eventParticipantsWithoutUser})
@@ -70,7 +69,7 @@ const SingleEvent = (
         props.updateUser(event.organizator, {'name': 'test5'})
       } else {
         props.update(event, {pendingParticipants: [...event.pendingParticipants, authentication.currentUserValue['@id']]})
-        props.updateUser(event.organizator, {'name': 'test5'})
+        props.updateUser(event.organizator, {updatedAt: new Date()})
       }
     }
   };
@@ -87,16 +86,16 @@ const SingleEvent = (
 
   let eventDate = new Date(item.date.slice(0, 19));
 
-  if (props.updated && props.updated['@id'] === item['@id'] && interests.length !== props.updated.interests.length) {
-    setInterests(props.updated.interests)
+  if (props.retrieved && props.retrieved['@id'] === item['@id'] && interests.length !== props.retrieved.interests.length) {
+    setInterests(props.retrieved.interests)
   }
 
-  if (props.updated && props.updated['@id'] === item['@id'] && participants.length !== props.updated.participants.length) {
-    setParticipants(props.updated.participants)
+  if (props.updated && props.updated['@id'] === item['@id'] && participants.length !== props.retrieved.participants.length) {
+    setParticipants(props.retrieved.participants)
   }
 
-  if (props.updated && props.updated['@id'] === item['@id'] && pendingParticipants.length !== props.updated.pendingParticipants.length) {
-    setPendingParticipants(props.updated.pendingParticipants)
+  if (props.retrieved && props.retrieved['@id'] === item['@id'] && pendingParticipants.length !== props.retrieved.pendingParticipants.length) {
+    setPendingParticipants(props.retrieved.pendingParticipants)
   }
 
   let distance = appContext.userPosition
@@ -161,6 +160,9 @@ const SingleEvent = (
             </Typography>
           </div>
           <div className="col-12">
+            <Typography gutterBottom>
+              <span className={"organizator-name"}>{item.organizator.name ? <div className={"d-flex align-items-center"}><span className={"mr-4"}>{item.organizator.name}</span> {item.organizator.rates.length > 0 && <><span className={"mr-2"}>{(item.organizator.rates.reduce((a, b) => a + b, 0) / item.organizator.rates.length) || 0} </span> <StarIcon className={"star-icon"}/></>}</div> : "Non défini"}</span>
+            </Typography>
             <Typography variant="body1" gutterBottom>
               Email : {item.organizator.contactEmail ? item.organizator.contactEmail : "Non défini"}
             </Typography>
@@ -189,7 +191,6 @@ const SingleEvent = (
               <div>
                 <Button
                   variant="contained"
-                  color="primary"
                   onClick={() => appContext.handleMapView(item)}
                   className={"py-3"}
                   endIcon={<RoomRoundedIcon/>}
@@ -204,7 +205,7 @@ const SingleEvent = (
               {(!userParticipates && !userPendingParticipates) &&
               <Button
                 variant="contained"
-                className={"py-3"}
+                className={"py-3 mr-3"}
                 color={userInterested ? 'primary' : 'default'}
                 endIcon={
                   <Badge badgeContent={interests.length}>
@@ -219,7 +220,7 @@ const SingleEvent = (
               <Button
                 variant={"contained"}
                 color={(userParticipates || userPendingParticipates) ? 'primary' : 'default'}
-                className={"ml-3 py-3"}
+                className={"py-3"}
                 endIcon={
                   <Badge badgeContent={participants.length}>
                     {!userParticipates &&

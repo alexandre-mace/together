@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {Card, CardContent} from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
+import {del} from "../../../actions/user/delete";
 
 const DiscoverOrganizers = props => {
   const [allOrganizers, setAllOrganizers] = useState([]);
@@ -38,6 +39,10 @@ const DiscoverOrganizers = props => {
     organizers = organizers.filter(organizer => organizer.name.toLowerCase().includes(search));
   }
 
+  organizers.forEach(organizer => {
+    // props.del(organizer)
+  })
+
   return (
     <>
       {(loading || props.loading) &&
@@ -64,7 +69,7 @@ const DiscoverOrganizers = props => {
      }
       {(!props.loading && !loading) &&
       <>
-        <div className="container mt-5">
+        <div className="container mt-3 mt-md-5">
           {organizers && organizers > 0 &&
           <div className="row">
             <div className="col text-center">
@@ -142,7 +147,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => ({
   list: page => dispatch(list(page)),
-  reset: eventSource => dispatch(reset(eventSource))
+  reset: eventSource => dispatch(reset(eventSource)),
+  delete: event => dispatch(del(event)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiscoverOrganizers);

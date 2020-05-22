@@ -55,15 +55,13 @@ function ManagePendingDemandCard(props) {
     <Card key={props.event['@id']} className={classes.card}>
         <CardHeader
           classes={{title: classes.title}}
+          className={"pb-0"}
           title={`${props.event.name.substring(0, 60)} ${props.event.name.length > 58 ? '...' : ''}`}
-          subheader={<div className={"d-flex w-100 justify-content-end"}>
+          subheader={<div className={"d-flex w-100 justify-content-start justify-content-md-end mt-2 mt-md-0"}>
             <div className={"mr-3"}>{props.event.interests.length} {props.event.interests.length > 1 ? "intéressés" : "intéressé"}</div>
             <div>{props.event.participants.length} {props.event.participants.length > 1 ? "participants" : "participant"}</div>
           </div>}
         />
-        <CardContent classes={{root: classes.root}} className={"pb-0 pb-md-3"}>
-        </CardContent>
-
       <CardActions className={'mt-auto d-flex flex-column pt-0'} disableSpacing>
         <div className={"w-100"}>
           <List>
@@ -75,26 +73,29 @@ function ManagePendingDemandCard(props) {
                   </ListItemAvatar>
                 </ListItemAvatar>
                 <ListItemText
-                  primary={pendingParticipant.name + ' souhaite participer'}
-                />
+                  primary={pendingParticipant.name}
+                  secondary={<span className={"d-none d-sm-block"}>souhaite participer</span>}
+                ><span>souhaite participer</span></ListItemText>
                 <ListItemSecondaryAction>
                   <Button
                     variant="contained"
                     color="primary"
                     className={classes.button}
                     onClick={() => props.acceptDemand(props.event, pendingParticipant)}
-                    endIcon={<CheckCircleIcon/>}
+                    endIcon={<CheckCircleIcon className={"d-none d-md-block"}/>}
                   >
-                    Accepter
+                    <CheckCircleIcon className={"d-inline-block d-md-none"}/>
+                    <div className={"d-none d-md-block"}>Accepter</div>
                   </Button>
                   <Button
                     variant="contained"
                     className={'color-red ml-3'}
                     size={"medium"}
                     onClick={() => props.refuseDemand(props.event, pendingParticipant)}
-                    endIcon={<DeleteForeverRoundedIcon fontSize={"large"}/>}
+                    endIcon={<DeleteForeverRoundedIcon className={"d-none d-md-block"}/>}
                   >
-                    Refuser
+                    <DeleteForeverRoundedIcon className={"d-inline-block d-md-none"}/>
+                    <div className={"d-none d-md-block"}>Refuser</div>
                   </Button>
                 </ListItemSecondaryAction>
               </ListItem>
