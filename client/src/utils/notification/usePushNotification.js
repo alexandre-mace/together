@@ -28,8 +28,6 @@ export default function usePushNotifications() {
   //to manage async actions
 
   useEffect(() => {
-    console.log(pushNotificationSupported)
-    console.log('bite')
     if (pushNotificationSupported) {
       setLoading(true);
       setError(false);
@@ -63,7 +61,6 @@ export default function usePushNotifications() {
     setLoading(true);
     setError(false);
     askUserPermission().then(consent => {
-      console.log(consent)
       setSuserConsent(consent);
       if (consent !== "granted") {
         setError({

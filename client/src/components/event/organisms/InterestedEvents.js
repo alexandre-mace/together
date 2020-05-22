@@ -62,7 +62,6 @@ const InterestedEvents = (props) => {
 
   let events = false;
   if (user) {
-    console.log(user)
     events = [...new Set([...user.interestedEvents, ...user.participatedEvents, ...user.pendingParticipatedEvents])]
   }
 

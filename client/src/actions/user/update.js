@@ -121,7 +121,6 @@ export function mercureOpen(eventSource) {
 }
 
 export function mercureMessage(retrieved) {
-  console.log(retrieved)
   return dispatch => {
     if (1 === Object.keys(retrieved).length) {
       dispatch({ type: 'USER_UPDATE_MERCURE_DELETED', retrieved });
