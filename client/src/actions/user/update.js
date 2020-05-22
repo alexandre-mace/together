@@ -64,6 +64,7 @@ export function update(item, values) {
     dispatch(updateLoading(true));
 
     const userToFetch = item['@id'] ? item['@id'] : item;
+
     return fetch(userToFetch, {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/ld+json' }),

@@ -9,8 +9,12 @@ const WizardUserFormStatusPage = (props) => (
     <Typography className={"mt-3"} variant={"h6"}>
       Vous êtes
     </Typography>
-    <Field component={RadioGroup} name="status" className={"d-flex justify-content-center flex-row"}
-           value={props.formik.values.status ? props.formik.values.status : ''} {...props}
+    <Field
+      component={RadioGroup}
+      name="status"
+      className={"d-flex justify-content-center flex-row"}
+      value={props.formik.values.status ? props.formik.values.status : ''}
+      {...props}
     >
       <FormControlLabel
         value="volunteer"

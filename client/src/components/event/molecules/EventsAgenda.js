@@ -2,7 +2,7 @@ import EventCard from "../atoms/EventCard";
 import React from "react";
 import displayMeters from "../../../utils/geocoding/displayMeters";
 import getDistance from "geolib/es/getDistance";
-import sortByDateAsc from "../../../utils/agenda/sortByDateAsc";
+import sortByDateAsc from "../../../utils/agenda/sorters/sortByDateAsc";
 import { Animate }  from 'react-simple-animate';
 import AgendaDay from "../atoms/AgendaDay";
 
@@ -16,7 +16,7 @@ const EventsAgenda = (props) => (
             event={event}
             index={index}
           />
-          <div className={"col-12 col-md-4 mt-3"} key={index}>
+          <div className={"col-12 col-md-4 mt-3 event-card"} key={index}>
             <Animate
               play={true} // set play true to start the animation
               duration={0.6} // how long is the animation duration

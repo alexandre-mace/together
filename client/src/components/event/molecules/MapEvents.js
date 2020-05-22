@@ -39,7 +39,6 @@ const MapEvents = (props) => (
           ))}
         </SwipeableViews>
       </div>
-
     </div>
 
     {/* desktop */}
@@ -53,7 +52,10 @@ const MapEvents = (props) => (
                 event={event}
                 distance={
                   props.userPosition
-                    ? displayMeters(getDistance({ latitude:event.latitude, longitude: event.longitude} , {latitude: props.userPosition.latitude, longitude: props.userPosition.longitude}))
+                    ? displayMeters(getDistance(
+                      { latitude:event.latitude, longitude: event.longitude},
+                        {latitude: props.userPosition.latitude, longitude: props.userPosition.longitude}
+                        ))
                     : false
                 }
               />

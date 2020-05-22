@@ -11,14 +11,21 @@ const WizardUserFormGeneralInformationPage = (props) => {
     </Typography>
     <div className="form-group">
       <Field component={TextField} variant={"filled"}
-             value={props.formik.values.name ? props.formik.values.name : ''} {...props}
-             label={localStorage.getItem("status") === "volunteer" ? "Prénom" : "Nom de votre association"} margin="normal"
-             fullWidth name="name" type="text"/>
+             value={props.formik.values.name ? props.formik.values.name : ''}
+             {...props}
+             label={localStorage.getItem("status") === "volunteer" ? "Prénom" : "Nom de votre association"}
+             margin="normal"
+             fullWidth
+             name="name"
+             type="text"/>
       <ErrorMessage {...props} name="name" component="div" className="invalid-feedback"/>
     </div>
     <div className="form-group">
       <Field component={TextField} {...props} variant={"filled"}
-             value={props.formik.values.email ? props.formik.values.email : ''} label="Email" margin="normal" fullWidth
+             value={props.formik.values.email ? props.formik.values.email : ''}
+             label="Email"
+             margin="normal"
+             fullWidth
              name="email" type="text"/>
       <ErrorMessage {...props} name="email" component="div" className="invalid-feedback"/>
     </div>

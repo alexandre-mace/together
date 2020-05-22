@@ -10,9 +10,6 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Layout from "../../Layout";
-import DiscoverEvents from "./DiscoverEvents";
-import DiscoverOrganizers from "./DiscoverOrganizers";
 import Badge from "@material-ui/core/Badge";
 
 function TabPanel(props) {
@@ -85,9 +82,31 @@ const InterestedEvents = (props) => {
           <div className="row">
             <div className="col mb-3">
               <Tabs centered value={value} onChange={handleChange} aria-label="simple tabs example">
-                <Tab label={<><Badge variant={"dot"} badgeContent={user.participatedEvents.length} color={'primary'}>Participe</Badge></>} {...a11yProps(0)} />
-                <Tab label={<><Badge variant={"dot"} badgeContent={user.pendingParticipatedEvents.length} color={'primary'}>Attente</Badge></>} {...a11yProps(1)} />
-                <Tab label={<><Badge variant={"dot"} badgeContent={user.interestedEvents.length} color={'primary'}>Intérêt</Badge></>} {...a11yProps(2)} />
+                <Tab
+                  label={
+                    <>
+                      <Badge
+                        variant={"dot"}
+                        badgeContent={user.participatedEvents.length}
+                        color={'primary'}
+                      >
+                        Participe
+                      </Badge></>} {...a11yProps(0)} />
+                <Tab
+                  label={
+                    <>
+                      <Badge
+                        variant={"dot"} badgeContent={user.pendingParticipatedEvents.length}
+                        color={'primary'}
+                      >
+                        Attente</Badge></>} {...a11yProps(1)} />
+                <Tab
+                  label={
+                    <>
+                      <Badge
+                        variant={"dot"} badgeContent={user.interestedEvents.length}
+                        color={'primary'}
+                      >Intérêt</Badge></>} {...a11yProps(2)} />
               </Tabs>
             </div>
           </div>

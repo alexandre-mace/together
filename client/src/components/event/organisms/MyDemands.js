@@ -44,8 +44,15 @@ const MyDemands = (props) => {
   const refuseDemand = (event, participant) => {
     if (window.confirm('Voulez-vous vraiment refuser ce participant')) {
       let eventParticipantsWithoutUser = event.pendingParticipants.filter(user => user['@id'] !== participant['@id']);
-      props.update(event, {pendingParticipants: eventParticipantsWithoutUser.map(loopParticipant => loopParticipant['@id'])}).then(() => {
-        props.update(event, {refusedParticipants: [...(event.refusedParticipants.map(loopParticipant => loopParticipant['@id'])), participant['@id']]}).then(() =>
+      props.update(
+        event,
+        {pendingParticipants: eventParticipantsWithoutUser.map(loopParticipant => loopParticipant['@id'])}
+        ).then(() => {
+        props.update(
+          event,
+          {refusedParticipants: [...(event.refusedParticipants
+              .map(loopParticipant => loopParticipant['@id'])), participant['@id']]}
+          ).then(() =>
             props.retrieve(authentication.currentUserValue['@id'])
         )
       })
@@ -54,8 +61,13 @@ const MyDemands = (props) => {
 
   const acceptDemand = (event, participant) => {
     let eventParticipantsWithoutUser = event.pendingParticipants.filter(user => user['@id'] !== participant['@id']);
-    props.update(event, {pendingParticipants: eventParticipantsWithoutUser.map(loopParticipant => loopParticipant['@id'])}).then(() => {
-      props.update(event, {participants: [...(event.participants.map(loopParticipant => loopParticipant['@id'])), participant['@id']]}).then(() => {
+    props.update(
+      event,
+      {pendingParticipants: eventParticipantsWithoutUser.map(loopParticipant => loopParticipant['@id'])}).then(() => {
+      props.update(
+        event,
+        {participants: [...(event.participants.map(loopParticipant => loopParticipant['@id'])), participant['@id']]}
+      ).then(() => {
           props.updateUser(participant, {updatedAt: new Date()})
           props.retrieve(authentication.currentUserValue['@id'])
         }

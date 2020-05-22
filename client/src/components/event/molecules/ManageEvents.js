@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import displayMeters from "../../../utils/geocoding/displayMeters";
 import getDistance from "geolib/es/getDistance";
-import sortByDateDesc from "../../../utils/agenda/sortByDateDesc";
+import sortByDateDesc from "../../../utils/agenda/sorters/sortByDateDesc";
 import ManageEventCard from "../atoms/ManageEventCard";
 import AgendaDay from "../atoms/AgendaDay";
 import AppContext from "../../../config/context/appContext";

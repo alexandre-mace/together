@@ -7,9 +7,7 @@ import {
 } from '../../utils/dataAccess';
 import { success as createSuccess } from './create';
 import { loading, error } from './delete';
-import {authentication} from "../../utils/auth/authentication";
-import {retrieve as userRetrieve} from "../user/show";
-
+import updateClientToApiAdapter from "../../utils/event/adapters/updateClientToApiAdapter";
 
 export function retrieveError(retrieveError) {
   return { type: 'EVENT_UPDATE_RETRIEVE_ERROR', retrieveError };
@@ -61,9 +59,7 @@ export function updateSuccess(updated) {
 }
 
 export function update(item, values) {
-  if (values['date'] && typeof values.date === 'string') {
-    values['date'] = values['date'].replace(/\//g, '-')
-  }
+  values = updateClientToApiAdapter(values)
 
   return dispatch => {
     dispatch(updateError(null));

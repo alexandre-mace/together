@@ -1,4 +1,4 @@
-import isSameDay from "../../../utils/agenda/isSameDay";
+import isSameDay from "../../../verifiers/date/isSameDay";
 import React from "react";
 
 const AgendaDay = (props) => (

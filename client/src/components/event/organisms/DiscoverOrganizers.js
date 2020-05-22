@@ -39,10 +39,6 @@ const DiscoverOrganizers = props => {
     organizers = organizers.filter(organizer => organizer.name.toLowerCase().includes(search));
   }
 
-  organizers.forEach(organizer => {
-    // props.del(organizer)
-  })
-
   return (
     <>
       {(loading || props.loading) &&

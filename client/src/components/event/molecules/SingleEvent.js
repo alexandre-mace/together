@@ -1,7 +1,6 @@
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import {Badge, Typography} from "@material-ui/core";
-import format from "date-fns/format";
 import EventMaxPlacesIndicator from "../atoms/EventMaxPlacesIndicator";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import Button from "@material-ui/core/Button";
@@ -11,7 +10,6 @@ import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
 import React, {useContext, useState} from "react";
 import displayMeters from "../../../utils/geocoding/displayMeters";
-import getDistance from "geolib/es/getDistance";
 import {authentication} from "../../../utils/auth/authentication";
 import redirectToLoginIfNoUser from "../../../utils/security/redirectToLoginIfNoUser";
 import AppContext from "../../../config/context/appContext";
@@ -21,6 +19,9 @@ import {update as updateUser} from "../../../actions/user/update";
 import {connect} from "react-redux";
 import Paper from '@material-ui/core/Paper';
 import StarIcon from '@material-ui/icons/Star';
+import calculateDistanceBetweenEventAndUser from "../../../utils/geocoding/calculateDistanceBetweenEventAndUser";
+import hoursAndMinutesFormater from "../../../utils/date/formaters/hoursAndMinutesFormater";
+import dayAndMonthFormater from "../../../utils/date/formaters/dayAndMonthFormater";
 
 const SingleEvent = (
   {
@@ -55,20 +56,25 @@ const SingleEvent = (
     }
 
     if (participants.includes(authentication.currentUserValue['@id'])) {
-      let eventParticipantsWithoutUser = event.participants.filter(userId => userId !== authentication.currentUserValue['@id']);
+      let eventParticipantsWithoutUser = event.participants
+        .filter(userId => userId !== authentication.currentUserValue['@id']);
       props.update(event, {participants: eventParticipantsWithoutUser})
-      props.updateUser(event.organizator, {'name': 'test5'})
+      props.updateUser(event.organizator, {'updatedAt': new Date()})
     } else if (pendingParticipants.includes(authentication.currentUserValue['@id'])) {
-      let eventParticipantsWithoutUser = event.pendingParticipants.filter(userId => userId !== authentication.currentUserValue['@id']);
+      let eventParticipantsWithoutUser = event.pendingParticipants
+        .filter(userId => userId !== authentication.currentUserValue['@id']);
       props.update(event, {pendingParticipants: eventParticipantsWithoutUser})
-      props.updateUser(event.organizator, {'name': 'test5'})
+      props.updateUser(event.organizator, {'updatedAt': new Date()})
     }
     else {
       if (event.autoAccept) {
         props.update(event, {participants: [...event.participants, authentication.currentUserValue['@id']]})
-        props.updateUser(event.organizator, {'name': 'test5'})
+        props.updateUser(event.organizator, {'updatedAt': new Date()})
       } else {
-        props.update(event, {pendingParticipants: [...event.pendingParticipants, authentication.currentUserValue['@id']]})
+        props.update(
+          event,
+          {pendingParticipants: [...event.pendingParticipants, authentication.currentUserValue['@id']]}
+        )
         props.updateUser(event.organizator, {updatedAt: new Date()})
       }
     }
@@ -99,7 +105,7 @@ const SingleEvent = (
   }
 
   let distance = appContext.userPosition
-    ? displayMeters(getDistance({ latitude: item.latitude, longitude: item.longitude} , {latitude: appContext.userPosition.latitude, longitude: appContext.userPosition.longitude}))
+    ? displayMeters(calculateDistanceBetweenEventAndUser(item, appContext.userPosition))
     : false;
 
   return (
@@ -125,9 +131,12 @@ const SingleEvent = (
           }
           <div className={"col text-center"}>
             <Typography variant={"h6"}
-                        className="font-weight-bold">{format(eventDate, 'dd')}/{format(eventDate, 'MM')}</Typography>
-            <Typography variant={"h6"}
-                        className="font-weight-light">{format(eventDate, 'HH')}h{format(eventDate, 'mm') !== 0 ? format(eventDate, 'mm') : ''}</Typography>
+                        className="font-weight-bold">{dayAndMonthFormater(eventDate)}
+            </Typography>
+            <Typography
+              variant={"h6"}
+              className="font-weight-light">{hoursAndMinutesFormater(eventDate)}
+            </Typography>
           </div>
           <div>
             <div className="col">
@@ -160,9 +169,27 @@ const SingleEvent = (
             </Typography>
           </div>
           <div className="col-12">
-            <Typography gutterBottom>
-              <span className={"organizator-name"}>{item.organizator.name ? <div className={"d-flex align-items-center"}><span className={"mr-4"}>{item.organizator.name}</span> {item.organizator.rates.length > 0 && <><span className={"mr-2"}>{(item.organizator.rates.reduce((a, b) => a + b, 0) / item.organizator.rates.length) || 0} </span> <StarIcon className={"star-icon"}/></>}</div> : "Non défini"}</span>
-            </Typography>
+            <div className={"mb-3"}>
+              <span className={"organizator-name"}>
+                {item.organizator.name
+                  ?
+                    <div className={"d-flex align-items-center"}>
+                      <span className={"mr-4"}>
+                        {item.organizator.name}
+                      </span>
+                      {
+                        item.organizator.rates.length > 0 &&
+                        <>
+                          <span className={"mr-2"}>
+                            {(item.organizator.rates.reduce((a, b) => a + b, 0) / item.organizator.rates.length) || 0}
+                          </span>
+                          <StarIcon className={"star-icon"}/>
+                        </>
+                      }
+                    </div>
+                  : "Non défini"}
+              </span>
+            </div>
             <Typography variant="body1" gutterBottom>
               Email : {item.organizator.contactEmail ? item.organizator.contactEmail : "Non défini"}
             </Typography>
@@ -228,7 +255,8 @@ const SingleEvent = (
                     }
                     {userParticipates &&
                     <EventAvailableIcon fontSize="large"/>
-                    }                    </Badge>
+                    }
+                  </Badge>
                 }
                 onClick={() => handleParticipate(item)}>
                 {userPendingParticipates ? 'Demande envoyée' : 'Participe'}

@@ -108,8 +108,12 @@ span.logo:hover {
         padding-bottom: 100px;
     }
 }
+.event-card .MuiCardHeader-title {
+    height: 60px !important;
+}
 .organizator-name {
     font-size: 1.3rem;
+    color: white;
 }
 .button-with-fullwidth-link {
     a {

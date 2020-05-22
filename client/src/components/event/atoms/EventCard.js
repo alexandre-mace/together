@@ -12,8 +12,6 @@ import format from 'date-fns/format'
 import RoomRoundedIcon from '@material-ui/icons/RoomRounded';
 import {reset, retrieve, update} from "../../../actions/event/update";
 import {del} from "../../../actions/event/delete";
-import {authentication} from "../../../utils/auth/authentication";
-import redirectToLoginIfNoUser from "../../../utils/security/redirectToLoginIfNoUser";
 import EventMaxPlacesIndicator from "./EventMaxPlacesIndicator";
 import Button from '@material-ui/core/Button';
 
@@ -52,52 +50,7 @@ const useStyles = makeStyles(theme => ({
 function EventCard(props) {
   const classes = useStyles();
 
-  const [interests, setInterests] = useState(props.event.interests);
-  const [participants, setParticipants] = useState(props.event.participants);
-
   let eventDate = new Date(props.event.date.slice(0, 19));
-
-  const handleInterest = (event) => {
-    if (!authentication.currentUserValue) {
-      redirectToLoginIfNoUser(props.history);
-      return;
-    }
-
-    if (interests.includes(authentication.currentUserValue['@id'])) {
-      let eventInterestsWithoutUser = event.interests.filter(user => user['@id'] !== authentication.currentUserValue['@id']);
-      props.update(event, {interests: eventInterestsWithoutUser})
-    } else {
-      props.update(event, {interests: [...event.interests, authentication.currentUserValue['@id']]})
-    }
-  };
-
-  const handleParticipate = (event) => {
-    if (!authentication.currentUserValue) {
-      redirectToLoginIfNoUser(props.history);
-      return;
-    }
-
-    if (participants.includes(authentication.currentUserValue['@id'])) {
-      let eventParticipantsWithoutUser = event.participants.filter(user => user['@id'] !== authentication.currentUserValue['@id']);
-      props.update(event, {participants: eventParticipantsWithoutUser})
-    } else {
-      props.update(event, {participants: [...event.participants, authentication.currentUserValue['@id']]})
-    }
-  };
-
-  if (props.updated && props.updated['@id'] === props.event['@id'] && interests.length !== props.updated.interests.length) {
-    setInterests(props.updated.interests)
-  }
-  if (props.updated && props.updated['@id'] === props.event['@id'] && participants.length !== props.updated.participants.length) {
-    setParticipants(props.updated.participants)
-  }
-
-  const userInterested = authentication.currentUserValue
-    ? interests.includes(authentication.currentUserValue['@id'])
-    : false;
-  const userParticipates = authentication.currentUserValue
-    ? participants.includes(authentication.currentUserValue['@id'])
-    : false;
 
   return (
     <Card key={props.event['@id']} className={classes.card}>
@@ -111,7 +64,7 @@ function EventCard(props) {
         <div className="row my-3 px-3 align-items-center">
           <EventMaxPlacesIndicator
             maxPlaces={props.event.maxPlaces}
-            current={participants.length}
+            current={props.event.participants.length}
           />
         </div>
         <CardContent classes={{root: classes.root}} className={"pb-0 pb-md-3"}>

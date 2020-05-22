@@ -56,8 +56,12 @@ function RegisterFormWrapper({
               variant={"contained"}
               className={!canGoBack ? "next" :  "next w-100"}
               color={'primary'}
-              disabled={Object.entries(touched).length === 0 || (Object.entries(touched).length > 0 && Object.entries(errors).length > 0 )}
-            >{(isLastStep ? 'S\'inscrire' : 'Suivant')}</Button>
+              disabled={
+                Object.entries(touched).length === 0 ||
+                (Object.entries(touched).length > 0 && Object.entries(errors).length > 0 )}
+            >
+              {(isLastStep ? 'S\'inscrire' : 'Suivant')}
+            </Button>
           </div>
         )}
       </div>

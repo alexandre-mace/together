@@ -1,6 +1,6 @@
 import { SubmissionError } from 'redux-form';
 import { fetch } from '../../utils/dataAccess';
-import {authentication} from "../../utils/auth/authentication";
+import createClientToApiAdapter from "../../utils/event/adapters/createClientToApiAdapter";
 
 export function error(error) {
   return { type: 'EVENT_CREATE_ERROR', error };
@@ -14,22 +14,8 @@ export function success(created) {
   return { type: 'EVENT_CREATE_SUCCESS', created };
 }
 
-function formatValues(values) {
-  if (values['date'] && typeof values.date === 'string') {
-    values['date'] = values['date'].replace(/\//g, '-')
-  }
-
-  if (values['maxPlaces'] && typeof values.maxPlaces === 'string') {
-    values['maxPlaces'] = parseInt(values['maxPlaces'])
-  }
-
-  values['organizator'] = authentication.currentUserValue['@id'];
-
-  return values
-}
-
 export function create(values) {
-  values = formatValues(values);
+  values = createClientToApiAdapter(values);
 
   return dispatch => {
     dispatch(loading(true));

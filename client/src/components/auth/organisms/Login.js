@@ -84,7 +84,11 @@ class Login extends React.Component {
                             label="Votre mot de passe"
                             fullWidth
                           />
-                           <VisibilityIcon className={"show-password"} onClick={() => this.toggleShowPassword()} color={this.state.showPassword ? "primary" : "disabled"}/>
+                           <VisibilityIcon
+                             className={"show-password"}
+                             onClick={() => this.toggleShowPassword()}
+                             color={this.state.showPassword ? "primary" : "disabled"}
+                           />
                           <ErrorMessage name="password" component="div" className="invalid-feedback"/>
                         </div>
                         <div className="form-group text-center">
@@ -92,7 +96,10 @@ class Login extends React.Component {
                             <LinearProgress/>
                           ) : (
                             <Button
-                              disabled={Object.entries(touched).length === 0 || (Object.entries(touched).length > 0 && Object.entries(errors).length > 0 )}
+                              disabled={
+                                Object.entries(touched).length === 0 ||
+                                (Object.entries(touched).length > 0 && Object.entries(errors).length > 0 )
+                              }
                               type="submit"
                               variant="contained"
                               color={'primary'}>Se connecter</Button>

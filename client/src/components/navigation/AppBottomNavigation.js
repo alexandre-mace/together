@@ -16,7 +16,6 @@ import FolderSharedRoundedIcon from '@material-ui/icons/FolderSharedRounded';
 import EventRoundedIcon from '@material-ui/icons/EventRounded';
 import {COLOR_SECONDARY} from "../../config/project";
 import Badge from "@material-ui/core/Badge";
-import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
     root: {

@@ -51,13 +51,8 @@ const Layout = (props) => {
   }, [currentRatedEvent])
 
   const user = (props.updated && props.updated['@id'] === authentication.currentUserValue['@id']) ? props.updated : props.retrieved ? props.retrieved : false;
-  //
-  // let notifications = 0;
-  //
+
   if (user) {
-    // notifications = user.initiatedProjects.reduce(function (accumulateur, currentProject) {
-    //   return accumulateur + currentProject.joinDemands.filter(demand => (demand.status === 'En attente')).length;
-    // }, 0);
     if (user.participatedEvents) {
       const calculatedEventsToRate = user.participatedEvents
         .filter((event) => !user.ratedEvents.includes(event.id))

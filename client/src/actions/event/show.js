@@ -2,7 +2,7 @@ import {
   fetch,
   extractHubURL,
   normalize,
-  mercureSubscribe as subscribe, normalizeProperties
+  mercureSubscribe as subscribe
 } from '../../utils/dataAccess';
 
 export function error(error) {
