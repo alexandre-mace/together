@@ -20,6 +20,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     attributes={
  *         "normalization_context"={"groups"={"user:read"}, "enable_max_depth"=true},
  *     },
+ *     mercure="true"
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="app_user")
@@ -99,11 +100,45 @@ class User implements UserInterface
      */
     private $contactPhone;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user:read", "event:read"})
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     * @Groups({"user:read", "event:read"})
+     */
+    private $ratedEvents = [];
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     * @Groups({"user:read", "event:read"})
+     */
+    private $rates = [];
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="pendingParticipants")
+     * @Groups({"user:read"})
+     * @MaxDepth(1)
+     */
+    private $pendingParticipatedEvents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="refusedParticipants")
+     * @Groups({"user:read"})
+     * @MaxDepth(1)
+     */
+    private $refusedParticipatedEvents;
+
     public function __construct()
     {
         $this->interestedEvents = new ArrayCollection();
         $this->participatedEvents = new ArrayCollection();
         $this->organizedEvents = new ArrayCollection();
+        $this->pendingParticipatedEvents = new ArrayCollection();
+        $this->refusedParticipatedEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -303,6 +338,98 @@ class User implements UserInterface
     public function setContactPhone(?string $contactPhone): self
     {
         $this->contactPhone = $contactPhone;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getRatedEvents(): ?array
+    {
+        return $this->ratedEvents;
+    }
+
+    public function setRatedEvents(?array $ratedEvents): self
+    {
+        $this->ratedEvents = $ratedEvents;
+
+        return $this;
+    }
+
+    public function getRates(): ?array
+    {
+        return $this->rates;
+    }
+
+    public function setRates(?array $rates): self
+    {
+        $this->rates = $rates;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getPendingParticipatedEvents(): Collection
+    {
+        return $this->pendingParticipatedEvents;
+    }
+
+    public function addPendingParticipatedEvent(Event $pendingParticipatedEvent): self
+    {
+        if (!$this->pendingParticipatedEvents->contains($pendingParticipatedEvent)) {
+            $this->pendingParticipatedEvents[] = $pendingParticipatedEvent;
+            $pendingParticipatedEvent->addPendingParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removePendingParticipatedEvent(Event $pendingParticipatedEvent): self
+    {
+        if ($this->pendingParticipatedEvents->contains($pendingParticipatedEvent)) {
+            $this->pendingParticipatedEvents->removeElement($pendingParticipatedEvent);
+            $pendingParticipatedEvent->removePendingParticipant($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getRefusedParticipatedEvents(): Collection
+    {
+        return $this->refusedParticipatedEvents;
+    }
+
+    public function addRefusedParticipatedEvent(Event $refusedParticipatedEvent): self
+    {
+        if (!$this->refusedParticipatedEvents->contains($refusedParticipatedEvent)) {
+            $this->refusedParticipatedEvents[] = $refusedParticipatedEvent;
+            $refusedParticipatedEvent->addRefusedParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRefusedParticipatedEvent(Event $refusedParticipatedEvent): self
+    {
+        if ($this->refusedParticipatedEvents->contains($refusedParticipatedEvent)) {
+            $this->refusedParticipatedEvents->removeElement($refusedParticipatedEvent);
+            $refusedParticipatedEvent->removeRefusedParticipant($this);
+        }
 
         return $this;
     }

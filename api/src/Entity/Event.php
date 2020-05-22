@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     attributes={
  *         "normalization_context"={"groups"={"event:read"}, "enable_max_depth"=true},
  *     },
+ *     mercure="true"
  * )
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  */
@@ -92,10 +93,39 @@ class Event
      */
     private $organizator = null;
 
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups({"user:read", "event:read"})
+     */
+    private $maxPlaces;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="pendingParticipatedEvents")
+     * @ORM\JoinTable(name="event_pending_participants")
+     * @Groups({"user:read", "event:read"})
+     * @MaxDepth(1)
+     */
+    private $pendingParticipants;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $autoAccept;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="refusedParticipatedEvents")
+     * @ORM\JoinTable(name="event_refused_participants")
+     * @Groups({"user:read", "event:read"})
+     * @MaxDepth(1)
+     */
+    private $refusedParticipants;
+
     public function __construct()
     {
         $this->interests = new ArrayCollection();
         $this->participants = new ArrayCollection();
+        $this->pendingParticipants = new ArrayCollection();
+        $this->refusedParticipants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,6 +265,82 @@ class Event
     public function setOrganizator(?User $organizator): self
     {
         $this->organizator = $organizator;
+
+        return $this;
+    }
+
+    public function getMaxPlaces(): ?int
+    {
+        return $this->maxPlaces;
+    }
+
+    public function setMaxPlaces(int $maxPlaces): self
+    {
+        $this->maxPlaces = $maxPlaces;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getPendingParticipants(): Collection
+    {
+        return $this->pendingParticipants;
+    }
+
+    public function addPendingParticipant(User $pendingParticipant): self
+    {
+        if (!$this->pendingParticipants->contains($pendingParticipant)) {
+            $this->pendingParticipants[] = $pendingParticipant;
+        }
+
+        return $this;
+    }
+
+    public function removePendingParticipant(User $pendingParticipant): self
+    {
+        if ($this->pendingParticipants->contains($pendingParticipant)) {
+            $this->pendingParticipants->removeElement($pendingParticipant);
+        }
+
+        return $this;
+    }
+
+    public function getAutoAccept(): ?bool
+    {
+        return $this->autoAccept;
+    }
+
+    public function setAutoAccept(bool $autoAccept): self
+    {
+        $this->autoAccept = $autoAccept;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getRefusedParticipants(): Collection
+    {
+        return $this->refusedParticipants;
+    }
+
+    public function addRefusedParticipant(User $refusedParticipant): self
+    {
+        if (!$this->refusedParticipants->contains($refusedParticipant)) {
+            $this->refusedParticipants[] = $refusedParticipant;
+        }
+
+        return $this;
+    }
+
+    public function removeRefusedParticipant(User $refusedParticipant): self
+    {
+        if ($this->refusedParticipants->contains($refusedParticipant)) {
+            $this->refusedParticipants->removeElement($refusedParticipant);
+        }
 
         return $this;
     }
