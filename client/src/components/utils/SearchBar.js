@@ -119,7 +119,12 @@ const SearchBar = (props) => {
           />
         </div>
         <div className="col-2 col-md-1 pl-0">
-            <Button aria-describedby={id} className={"h-100 search-settings-button"} variant="contained" color="primary" onClick={handleClick}>
+            <Button
+              aria-describedby={id}
+              className={"h-100 search-settings-button"}
+              variant="contained"
+              color="primary"
+              onClick={handleClick}>
               <TuneIcon/>
             </Button>
             <Popover

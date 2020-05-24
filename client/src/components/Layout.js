@@ -14,7 +14,8 @@ import {update} from "../actions/user/update";
 import isBefore from 'date-fns/isBefore'
 
 const Layout = (props) => {
-  const [userPosition, setUserPosition] = useState({ latitude: 44.8337080, longitude: -0.5821208, addressName:  "38 Rue Lacornée, 33000 Bordeaux France" });
+  const [userPosition, setUserPosition] = useState(
+    { latitude: 44.8337080, longitude: -0.5821208, addressName:  "38 Rue Lacornée, 33000 Bordeaux France" });
   const [mapCenter, setMapCenter] = useState([ 44.8337080, -0.5821208]);
   const [mapView, setMapView] = useState(false);
   const [currentRatedEvent, setCurrentRatedEvent] = useState(false);
@@ -37,9 +38,12 @@ const Layout = (props) => {
       props.retrieve('/users/' + decodeURIComponent(authentication.currentUserValue.id));
     }
 
-    if (authentication.currentUserValue && authentication.currentUserValue.status === "association" && !localStorage.getItem("associationRedirect")) {
-      props.history.push('/mes-missions');
-      localStorage.setItem("associationRedirect", "true");
+    if (
+      authentication.currentUserValue &&
+      authentication.currentUserValue.status === "association" &&
+      !localStorage.getItem("associationRedirect")) {
+        props.history.push('/mes-missions');
+        localStorage.setItem("associationRedirect", "true");
     }
   }, []);
 
@@ -50,7 +54,13 @@ const Layout = (props) => {
     }
   }, [currentRatedEvent])
 
-  const user = (props.updated && props.updated['@id'] === authentication.currentUserValue['@id']) ? props.updated : props.retrieved ? props.retrieved : false;
+  const user =
+    (props.updated &&
+    props.updated['@id'] === authentication.currentUserValue['@id'])
+      ? props.updated
+      : props.retrieved
+        ? props.retrieved
+        : false;
 
   if (user) {
     if (user.participatedEvents) {
@@ -73,10 +83,6 @@ const Layout = (props) => {
       }
     }
   }
-
-  // if (user && user.ratedEvents.length > 0) {
-  //   props.update(user, {ratedEvents: []});
-  // }
 
   return (
       <ThemeProvider theme={theme}>

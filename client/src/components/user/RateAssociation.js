@@ -5,10 +5,8 @@ import PropTypes from 'prop-types';
 import { retrieve, update, reset } from '../../actions/user/update';
 import { del } from '../../actions/user/delete';
 import {Loader} from "../utils/Loader";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import RateAssociationForm from "./RateAssociationForm";
 import {Typography} from "@material-ui/core";
-import {authentication} from "../../utils/auth/authentication";
 import Button from "@material-ui/core/Button";
 import AppContext from "../../config/context/appContext";
 import format from "date-fns/format";
@@ -43,7 +41,10 @@ class RateAssociation extends Component {
   submitForm = (item, value) => {
     let rates = item.rates ? item.rates : []
     this.props.update(item, {rates: [...rates, value]}).then(() => {
-      this.props.update(this.context.user, {ratedEvents: [...this.context.user.ratedEvents, this.context.currentRatedEvent.id]})
+      this.props.update(
+        this.context.user,
+        {ratedEvents: [...this.context.user.ratedEvents, this.context.currentRatedEvent.id]}
+        )
     })
   };
 
@@ -139,7 +140,10 @@ class RateAssociation extends Component {
                   variant="contained"
                   color="default"
                   onClick={() => {
-                    this.props.update(this.context.user, {ratedEvents: [...this.context.user.ratedEvents, this.context.currentRatedEvent.id]})
+                    this.props.update(
+                      this.context.user,
+                      {ratedEvents: [...this.context.user.ratedEvents, this.context.currentRatedEvent.id]}
+                      )
                   }}
                 >
                   Je n'ai pas participé à la mission

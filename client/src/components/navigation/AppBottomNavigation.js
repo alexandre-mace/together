@@ -40,15 +40,6 @@ const useStyles = makeStyles({
     }
 });
 
-// const renderBottomNavigationActionWithBadge = (props) => {
-//     return (
-//         <Badge
-//                color="primary"
-//                badgeContent={"zer"}>
-//         </Badge>
-//     )
-// };
-
 const bottomNavigationIcons = {
     'list':  ListIcon,
     'related': BookmarksRoundedIcon,
@@ -63,11 +54,16 @@ const AppBottomNavigation = (props) => {
 
     let defaultValue = 0;
 
-    ((!authentication.currentUserValue || authentication.currentUserValue && authentication.currentUserValue.status === "volunteer")
+    ((
+      !authentication.currentUserValue ||
+      authentication.currentUserValue &&
+      authentication.currentUserValue.status === "volunteer")
       ? volunteerNavigationLinks
       : associationNavigationLinks)
     .forEach(bottomNavigationLink => {
-        if (('/' + bottomNavigationLink.route === props.history.location.pathname) || ('/se-connecter' === props.history.location.pathname)) {
+        if (
+          ('/' + bottomNavigationLink.route === props.history.location.pathname) ||
+          ('/se-connecter' === props.history.location.pathname)) {
             defaultValue = props.history.location.pathname;
         }
     });
@@ -84,16 +80,33 @@ const AppBottomNavigation = (props) => {
             showLabels
             className={classes.root}
         >
-            {((!authentication.currentUserValue || authentication.currentUserValue && authentication.currentUserValue.status === "volunteer")
+            {(
+              (!authentication.currentUserValue ||
+                authentication.currentUserValue &&
+                authentication.currentUserValue.status === "volunteer")
                 ? volunteerNavigationLinks
                 : associationNavigationLinks)
               .map((bottomNavigationLink, index) => {
                 const SpecificIcon = bottomNavigationIcons[bottomNavigationLink.icon];
 
-                if ((!authentication.currentUserValue && bottomNavigationLink.private === false) || authentication.currentUserValue) {
-                    return (<BottomNavigationAction key={index} className={classes.bottomNavAction + (bottomNavigationLink.mobile ? ' d-block d-md-none' : '' )} value={'/' + bottomNavigationLink.route} label={
+                if (
+                  (!authentication.currentUserValue && bottomNavigationLink.private === false) ||
+                  authentication.currentUserValue) {
+                    return (
+                      <BottomNavigationAction
+                        key={index}
+                        className={classes.bottomNavAction + (bottomNavigationLink.mobile ? ' d-block d-md-none' : '' )}
+                        value={'/' + bottomNavigationLink.route} label={
                       <>
-                      {(bottomNavigationLink.label === "Demandes" && props.user && props.user.organizedEvents.length > 0 && typeof props.user.organizedEvents[0].pendingParticipants !== "undefined") && <Badge variant={"dot"} badgeContent={props.user.organizedEvents.filter(event => event.pendingParticipants.length > 0).length} color={'error'}>{bottomNavigationLink.label}</Badge>}
+                      {
+                        (bottomNavigationLink.label === "Demandes" &&
+                        props.user && props.user.organizedEvents.length > 0 &&
+                        typeof props.user.organizedEvents[0].pendingParticipants !== "undefined") &&
+                        <Badge
+                          variant={"dot"}
+                          badgeContent={props.user.organizedEvents
+                            .filter(event => event.pendingParticipants.length > 0).length}
+                          color={'error'}>{bottomNavigationLink.label}</Badge>}
                     {(bottomNavigationLink.label !== "Demandes" || !props.user) && bottomNavigationLink.label}
                       </>
                     }

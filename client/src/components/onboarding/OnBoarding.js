@@ -2,7 +2,6 @@ import React from 'react';
 import SwipeableViews from "react-swipeable-views";
 import Button from '@material-ui/core/Button';
 import {MobileStepper, Typography} from "@material-ui/core";
-import {Link} from "react-router-dom";
 import {makeStyles} from "@material-ui/core/styles";
 import { bindKeyboard } from 'react-swipeable-views-utils';
 import {
@@ -112,8 +111,15 @@ const OnBoarding = (props) => {
                 activeStep={activeStep}
               />
               <div className="col-12 text-center my-3 d-flex justify-content-center">
-                <Button className={"mr-2 w-100"} variant={"contained"} onClick={handleBack}>Précédent</Button>
-                <Button className={"ml-2 w-100"} variant={"contained"} color={"primary"} onClick={handleNext}>Suivant</Button>
+                <Button
+                  className={"mr-2 w-100"}
+                  variant={"contained"}
+                  onClick={handleBack}>Précédent</Button>
+                <Button
+                  className={"ml-2 w-100"}
+                  variant={"contained"}
+                  color={"primary"}
+                  onClick={handleNext}>Suivant</Button>
               </div>
             </div>
           </div>
