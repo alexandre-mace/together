@@ -28,7 +28,7 @@
     "lodash.has": "^4.5.2",
     "lodash.mapvalues": "^4.6.0",
     "material-ui-pickers": "^2.2.4",
-    "node-sass": "4.13.0",
+    "node-sass": "7.0.0",
     "prettier": "^1.14.3",
     "prop-types": "^15.6.2",
     "react": "^16.12.0",
